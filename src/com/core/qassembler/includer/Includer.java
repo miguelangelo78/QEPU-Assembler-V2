@@ -19,7 +19,13 @@ public class Includer {
 		return includeList;
 	}
 	
-	public void include(){
+	public boolean isIncluded(String include_filename){
+		for(int i=0;i<includeList.size();i++) if(includeList.get(i).getName().equals(include_filename)) return true;
+		return false;
+    }
+	
+	public void include(ProgramFileHandler lib_toinclude){
 		// DO LOTS OF STUFF HERE
+		includeList.add(lib_toinclude);
 	}
 }

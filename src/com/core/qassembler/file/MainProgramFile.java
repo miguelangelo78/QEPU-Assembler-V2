@@ -19,11 +19,12 @@ public class MainProgramFile implements QConstants{
 	
 	public MainProgramFile(ProgramFileHandler mainProgram){
 		this.mainProgram=mainProgram;
+		machinecode=new ArrayList<Integer>();
 	}
 	
 	private void openFile(){
 		try {
-			mainFileHandler=new FileOutputStream(mainProgram.getPath());
+			mainFileHandler=new FileOutputStream(mainProgram.getFullBinPath());
 		} catch (FileNotFoundException e) { e.printStackTrace(); }
 	}
 	
@@ -54,6 +55,11 @@ public class MainProgramFile implements QConstants{
 	    		else mainFileHandler.write((ByteBuffer.allocate(4).putInt(machinecode.get(i)).array()));	
     	}catch(Exception e){ e.printStackTrace(); }
 		closeFile();
+	}
+	
+	
+	public void insertMachineCode(Integer[]operands){
+		machinecode.addAll(Arrays.asList(operands));
 	}
 	
 	public void insertMachineCode(int func,int op1,int op2,int op3){

@@ -13,7 +13,9 @@ public class RegexHandler {
 		while(matcher.find())
 			if(groups==null || groups.length==0) matchlist.add(matcher.group(0));
 			else{
-				//CREATE MULTIDIMENSIONAL ARRAYS
+				String [] grouplist=new String[groups.length];
+				for(int i=0;i<groups.length;i++) grouplist[i]=matcher.group(i);
+				matchlist.add(grouplist);
 			}
 		return matchlist;
 	}

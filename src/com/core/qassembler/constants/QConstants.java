@@ -19,4 +19,7 @@ public interface QConstants {
 	final int BINARY_FILE_EOF=0xFF;
 	final char STRING_TERMINATOR='\0';
     
+	//REGEX PATTERNS:
+	final String PATT_FILENAME="[^\\\\]*$";
+	final String PATT_FILEFORMAT="[^\\.]*$";
 }

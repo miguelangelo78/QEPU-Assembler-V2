@@ -5,17 +5,14 @@ import com.core.qassembler.includer.Includer;
 import com.core.qassembler.memory.Memory;
 
 public class Preassembler {
-	private Includer includer; // INCLUDES FILES
 	private Memory assemblerMemory; 
 
 	public Preassembler(String mainFilePath){
-		// DECLARE VARIABLES, OFFSETS, LABELS, EXPRESSIONS AND EVERYTHING ELSE BEFORE ASSEMBLING
-		assemblerMemory=new Memory();
-		includer=new Includer(mainFilePath);
+		assemblerMemory=new Memory(mainFilePath);
 	}
 	
 	public Includer getIncluder() {
-		return includer;
+		return assemblerMemory.getIncluder();
 	}
 	
 	public Memory getAssemblerMemory() {
@@ -23,6 +20,8 @@ public class Preassembler {
 	}
 	
 	public MainProgramFile preAssemble(MainProgramFile mainFile){
-		return mainFile; // CHANGE MAINFILE ASSEMBLY CODE
+		// DO SH*T LOADS OF THINGS HERE
+		// DECLARE VARIABLES, OFFSETS, LABELS, EXPRESSIONS, INTERVALS , HANDLE COMMENTS, CHANGE ASSEMBLY CODE AND EVERYTHING ELSE BEFORE ASSEMBLING
+		return mainFile;
 	}
 }

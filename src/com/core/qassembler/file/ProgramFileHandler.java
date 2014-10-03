@@ -16,25 +16,28 @@ public class ProgramFileHandler implements QConstants{
 	
 	public ProgramFileHandler(String program_filepath) throws Exception{
 		//CHECK IF THE FORMAT IS .QASM (OR EQUAL TO VAR FILESOURCE_FORMAT):
-		String format=((String) (RegexHandler.match("[^\\.]*$",program_filepath , 0, null).get(0))).trim();
+		String format=((String) (RegexHandler.match(PATT_FILEFORMAT,program_filepath , 0, null).get(0))).trim();
 		if(!format.equals(FILESOURCE_FORMAT)) throw new Exception("The file format given was '."+format+"'. You need to use '."+FILESOURCE_FORMAT+"'");
 		
 		//THE FILE HAS A VALID FORMAT:
 		this.program_filepath=program_filepath;
+		
+		//SET FILE FORMATS AND NAME:
+		program_name_format_preassembled=((String)(RegexHandler.match(PATT_FILENAME,program_filepath,0,null).get(0))).trim();
+		program_name_format_assembled=program_name_format_preassembled.replace("."+FILESOURCE_FORMAT,"."+FILEBINARY_FORMAT);
+		program_name=program_name_format_preassembled.replace("."+FILESOURCE_FORMAT, "");
+		this.program_filepath=this.program_filepath.replaceAll(program_name_format_preassembled,"");
+		
+		//SET ASSEMBLY CODE FOR THIS FILE:
 		assembly_code=readFile(program_filepath);
 		assembly_code_splitted=assembly_code.split("\\n");
 		assembly_code_linecount=assembly_code_splitted.length;
-		
-		//SET FILE FORMATS AND NAME:
-		program_name_format_preassembled=((String)(RegexHandler.match("[^\\\\]*$","C:\\Users\\Miguel\\Desktop\\QASM_Libs\\main.qasm",0,null).get(0))).trim();
-		program_name_format_assembled=program_name_format_preassembled.replace("."+FILESOURCE_FORMAT,"."+FILEBINARY_FORMAT);
-		program_name=program_name_format_preassembled.replace("."+FILESOURCE_FORMAT, "");
 	}
 	
 	private String readFile(String filepath){
 		String text="";
 		try {
-			BufferedReader br=new BufferedReader(new FileReader(program_filepath));
+			BufferedReader br=new BufferedReader(new FileReader(filepath));
 			String line="";
 			while ((line= br.readLine()) != null) text+=line+"\n";
 			br.close();
@@ -70,6 +73,14 @@ public class ProgramFileHandler implements QConstants{
 	
 	public String getPath(){
 		return program_filepath;
+	}
+	
+	public String getFullPath(){
+		return program_filepath+program_name_format_preassembled;
+	}
+	
+	public String getFullBinPath(){
+		return program_filepath+program_name_format_assembled;
 	}
 	
 	public void setAssemblyCode(String assembly_code){
