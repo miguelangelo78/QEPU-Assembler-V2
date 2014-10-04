@@ -14,7 +14,7 @@ public class RegexHandler {
 			if(groups==null || groups.length==0) matchlist.add(matcher.group(0));
 			else{
 				String [] grouplist=new String[groups.length];
-				for(int i=0;i<groups.length;i++) grouplist[i]=matcher.group(i);
+				for(int i=0;i<groups.length;i++)grouplist[i]=matcher.group(groups[i]);
 				matchlist.add(grouplist);
 			}
 		return matchlist;

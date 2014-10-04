@@ -15,11 +15,15 @@ public interface QConstants {
 	final String FILESOURCE_FORMAT="qasm";
 	final String FILEBINARY_FORMAT="bin";
 	final String FILEMAIN_ENTRYPOINT="main";
+	final String FILELINKED_SUFFIX="_linked."+FILESOURCE_FORMAT;
 	final int MAX_OPERAND_COUNT=3;
 	final int BINARY_FILE_EOF=0xFF;
 	final char STRING_TERMINATOR='\0';
-    
-	//REGEX PATTERNS:
+    //REGEX PATTERNS:
 	final String PATT_FILENAME="[^\\\\]*$";
 	final String PATT_FILEFORMAT="[^\\.]*$";
+	final String PATT_INCLUDING="^(?:.+?)?get.+?([a-z|A-Z].+?"+FILESOURCE_FORMAT+")";
+	final String PATT_FILEPATH=".+\\\\";
+	final String PATT_MAINLABEL="^(?:[ |	]+?)?("+FILEMAIN_ENTRYPOINT+")(?:[ |	]+?)?\\:";
+	final String PATT_LABEL="^(?:[ |	]+?)?([a-z]+?)(?:[ |	]+?)?\\:";
 }

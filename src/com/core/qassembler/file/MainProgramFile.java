@@ -40,7 +40,9 @@ public class MainProgramFile implements QConstants{
 	
 	public void createLinkedFile(String linkedAssemblyCode){
 		try {
-			BufferedWriter linkedFileWriter=new BufferedWriter(new FileWriter(new File(mainProgram.getAssembledName())));
+			String linked_filepath=mainProgram.getPath()+mainProgram.getName()+FILELINKED_SUFFIX;
+			System.out.println("Creating linked file ("+linked_filepath+")...");
+			BufferedWriter linkedFileWriter=new BufferedWriter(new FileWriter(new File(linked_filepath)));
 			linkedFileWriter.write(linkedAssemblyCode);
 			linkedFileWriter.close();
 		} catch (IOException e) { e.printStackTrace(); }
