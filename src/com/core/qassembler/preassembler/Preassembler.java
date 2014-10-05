@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.expression.ExpressionResolver;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.file.ProgramFileHandler;
 import com.core.qassembler.includer.Includer;
@@ -11,10 +12,12 @@ import com.core.qassembler.memory.Memory;
 import com.core.regex.RegexHandler;
 
 public class Preassembler implements QConstants{
-	private Memory assemblerMemory; 
+	private Memory assemblerMemory;
+	private ExpressionResolver expResolver;
 
 	public Preassembler(String mainFilePath){
 		assemblerMemory=new Memory(mainFilePath);
+		expResolver=new ExpressionResolver();
 	}
 	
 	public Includer getIncluder() {
@@ -30,8 +33,7 @@ public class Preassembler implements QConstants{
 	}
 	
 	private MainProgramFile handleExpressions(MainProgramFile mainFile){
-		
-		return mainFile;
+		return expResolver.resolve(mainFile, assemblerMemory);
 	}
 	
 	private MainProgramFile handleOffsets(MainProgramFile mainFile){
@@ -51,17 +53,22 @@ public class Preassembler implements QConstants{
 	}
 	
 	private MainProgramFile handleCommentsAndEmptyLines(MainProgramFile mainFile){
-		// CLEAN SINGLE LINE COMMENTS, MULTILINE COMMENTS AND EMPTY LINES
+		// CLEAN SINGLE LINE COMMENTS, MULTILINE COMMENTS AND EMPTY LINES:
+		String assembly=mainFile.getFile().getAssemblyCode();
+		List<Object> commentsMatch=RegexHandler.match(PATT_COMMENT, assembly, Pattern.MULTILINE, null);
+		for(int i=0;i<commentsMatch.size();i++) assembly=assembly.replaceAll((String)commentsMatch.get(i), "");
+		mainFile.getFile().setAssemblyCode(assembly.replaceAll(PATT_EMPTYLINE, "")); //REMOVE EMPTY LINES:
 		return mainFile;
 	}
 	
 	public MainProgramFile preAssemble(MainProgramFile mainFile) throws Exception{
 		mainFile=handleIncluding(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);
+		mainFile=handleOffsets(mainFile);
 		mainFile=handleExpressions(mainFile);
 		mainFile=handleIntervals(mainFile);
-		mainFile=handleOffsets(mainFile);
 		mainFile=handleLabels(mainFile);
+		System.out.println(mainFile.getFile().getAssemblyCode());
 		return mainFile;
 	}
 }

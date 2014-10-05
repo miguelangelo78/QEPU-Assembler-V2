@@ -26,4 +26,10 @@ public interface QConstants {
 	final String PATT_FILEPATH=".+\\\\";
 	final String PATT_MAINLABEL="^(?:[ |	]+?)?("+FILEMAIN_ENTRYPOINT+")(?:[ |	]+?)?\\:";
 	final String PATT_LABEL="^(?:[ |	]+?)?([a-z]+?)(?:[ |	]+?)?\\:";
+	final String PATT_COMMENT="(?:\\;.+?$)|\\/\\*(?:(?:.|\n)+?)?\\*\\/|^(?:[ |	]+?)?$";
+	final String PATT_EMPTYLINE="(?m)^[ \\t]*\r?\n";
+	final String PATT_EXPRESSION_VAR="((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";
+	final String PATT_EXPRESSION="([0-9]+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?([0-9]+?$)";
+	final String PATT_EXPRESSION_V2="[^a-z|0-9](?:[ |	|\\(]+)?[0-9]+?(?:[ |	]+?)?(?:[\\(\\)+\\-\\*\\/]+?(?:[ |	]+?)?[0-9])+(?:[ |	|\\)]+)?";
+	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+)?\\)";
 }
