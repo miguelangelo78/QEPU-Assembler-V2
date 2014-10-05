@@ -4,20 +4,23 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import com.core.qassembler.constants.QConstants;
-import com.core.qassembler.expression.ExpressionResolver;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.file.ProgramFileHandler;
-import com.core.qassembler.includer.Includer;
 import com.core.qassembler.memory.Memory;
-import com.core.regex.RegexHandler;
+import com.core.qassembler.memory.properties.Includer;
+import com.core.qassembler.preassembler.expression.ExpressionResolver;
+import com.core.qassembler.preassembler.replacements.ConstantReplacements;
+import com.utils.regex.RegexHandler;
 
 public class Preassembler implements QConstants{
 	private Memory assemblerMemory;
 	private ExpressionResolver expResolver;
+	private ConstantReplacements constReplace;
 
 	public Preassembler(String mainFilePath){
 		assemblerMemory=new Memory(mainFilePath);
 		expResolver=new ExpressionResolver();
+		constReplace=new ConstantReplacements();
 	}
 	
 	public Includer getIncluder() {
@@ -34,6 +37,10 @@ public class Preassembler implements QConstants{
 	
 	private MainProgramFile handleExpressions(MainProgramFile mainFile){
 		return expResolver.resolve(mainFile, assemblerMemory);
+	}
+	
+	private MainProgramFile handleConstantReplacements(MainProgramFile mainFile){
+		return constReplace.replaceAll(mainFile, assemblerMemory);
 	}
 	
 	private MainProgramFile handleOffsets(MainProgramFile mainFile){
@@ -65,6 +72,7 @@ public class Preassembler implements QConstants{
 		mainFile=handleIncluding(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleOffsets(mainFile);
+		mainFile=handleConstantReplacements(mainFile);
 		mainFile=handleExpressions(mainFile);
 		mainFile=handleIntervals(mainFile);
 		mainFile=handleLabels(mainFile);

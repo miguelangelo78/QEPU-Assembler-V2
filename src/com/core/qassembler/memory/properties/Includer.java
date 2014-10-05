@@ -1,4 +1,4 @@
-package com.core.qassembler.includer;
+package com.core.qassembler.memory.properties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.file.ProgramFileHandler;
-import com.core.regex.RegexHandler;
+import com.utils.regex.RegexHandler;
 
 public class Includer implements QConstants{
 	

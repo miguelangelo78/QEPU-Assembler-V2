@@ -1,4 +1,4 @@
-package com.core.qassembler.expression;
+package com.core.qassembler.preassembler.expression;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -8,7 +8,7 @@ import org.nfunk.jep.JEP;
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.Memory;
-import com.core.regex.RegexHandler;
+import com.utils.regex.RegexHandler;
 
 public class ExpressionResolver implements QConstants{
 	
@@ -20,9 +20,6 @@ public class ExpressionResolver implements QConstants{
 	
 	public MainProgramFile resolve(MainProgramFile mainFile,Memory assemblerMemory){
 		String assembly=mainFile.getFile().getAssemblyCode();
-		//change the variables to constants
-		
-		//grab the expressions and calculate them, then change the result back
 		List<Object> expressionMatcher=RegexHandler.match(PATT_EXPRESSION_V3, assembly, 0, null);
 		for(int i=0;i<expressionMatcher.size();i++){
 			String expression=(String)expressionMatcher.get(i);
@@ -30,9 +27,6 @@ public class ExpressionResolver implements QConstants{
 			expression=expression.replace("+","\\+").replace("*", "\\*").replace("/", "\\/").replace("(", "\\(").replace(")", "\\)");
 			assembly=assembly.replaceFirst(expression, Integer.toString((int)expressionParser.getValue()));
 		}
-		
-		//change the escaped caracters into ints
-		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
 	}

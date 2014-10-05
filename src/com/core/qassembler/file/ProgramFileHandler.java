@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import com.core.qassembler.constants.QConstants;
-import com.core.regex.RegexHandler;
+import com.utils.regex.RegexHandler;
 
 public class ProgramFileHandler implements QConstants{
 	

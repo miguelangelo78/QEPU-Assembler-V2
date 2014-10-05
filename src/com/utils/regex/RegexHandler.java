@@ -1,4 +1,4 @@
-package com.core.regex;
+package com.utils.regex;
 
 import java.util.ArrayList;
 import java.util.List;
