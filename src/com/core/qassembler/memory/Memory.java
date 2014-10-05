@@ -19,6 +19,9 @@ public class Memory implements QConstants{
 	public Memory(String mainFilePath){
 		basePath=(String) RegexHandler.match(PATT_FILEPATH, mainFilePath, 0, null).get(0);
 		includer=new Includer(mainFilePath,basePath);
+		variable_handler=new Variable();
+		offset_handler=new Offset();
+		label_handler=new Label();
 	}
 	
 	public String getBasePath() {
@@ -45,15 +48,15 @@ public class Memory implements QConstants{
 		return includer.include(mainFile);
 	}
 	
-	public void addVariable(String variable_name,int variable_bytelength){
-		variable_handler.declare(variable_name, variable_bytelength);
+	public MainProgramFile handleVariables(MainProgramFile mainFile){
+		return variable_handler.handleVariables(mainFile);
 	}
 	
-	public void addOffset(int start,int length){
-		offset_handler.addOffset(start, length);
+	public MainProgramFile handleLabels(MainProgramFile mainFile){
+		return label_handler.handleLabels(mainFile);
 	}
 	
-	public void addLabel(String labelName,int address){
-		label_handler.declare(labelName, address);
+	public void handleOffsets(MainProgramFile mainFile){
+		offset_handler.handleOffsets(mainFile);
 	}
 }

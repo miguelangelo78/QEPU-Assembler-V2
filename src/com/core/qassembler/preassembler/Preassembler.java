@@ -2,25 +2,29 @@ package com.core.qassembler.preassembler;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
-import com.core.qassembler.file.ProgramFileHandler;
 import com.core.qassembler.memory.Memory;
 import com.core.qassembler.memory.properties.Includer;
 import com.core.qassembler.preassembler.expression.ExpressionResolver;
 import com.core.qassembler.preassembler.replacements.ConstantReplacements;
+import com.core.qassembler.preassembler.replacements.Interval;
+import com.core.qassembler.preassembler.replacements.StringInterval;
 import com.utils.regex.RegexHandler;
 
 public class Preassembler implements QConstants{
 	private Memory assemblerMemory;
 	private ExpressionResolver expResolver;
 	private ConstantReplacements constReplace;
+	private Interval intervals;
+	private StringInterval stringIntervals;
 
 	public Preassembler(String mainFilePath){
 		assemblerMemory=new Memory(mainFilePath);
 		expResolver=new ExpressionResolver();
 		constReplace=new ConstantReplacements();
+		intervals=new Interval();
+		stringIntervals=new StringInterval();
 	}
 	
 	public Includer getIncluder() {
@@ -43,20 +47,8 @@ public class Preassembler implements QConstants{
 		return constReplace.replaceAll(mainFile, assemblerMemory);
 	}
 	
-	private MainProgramFile handleOffsets(MainProgramFile mainFile){
-		//DECLARE VARIABLES AND HANDLE STRINGS AND INTERVALS
-		
-		return mainFile;
-	}
-	
-	private MainProgramFile handleIntervals(MainProgramFile mainFile){
-		
-		return mainFile;
-	}
-	
 	private MainProgramFile handleLabels(MainProgramFile mainFile){
-		
-		return mainFile;
+		return assemblerMemory.handleLabels(mainFile);
 	}
 	
 	private MainProgramFile handleCommentsAndEmptyLines(MainProgramFile mainFile){
@@ -68,15 +60,22 @@ public class Preassembler implements QConstants{
 		return mainFile;
 	}
 	
+	private MainProgramFile handleOffsets(MainProgramFile mainFile){
+		assemblerMemory.handleOffsets(mainFile);
+		mainFile=assemblerMemory.handleVariables(mainFile);
+		mainFile=stringIntervals.replaceAll(mainFile);
+		mainFile=intervals.handleIntervals(mainFile);
+		return mainFile;
+	}
+	
 	public MainProgramFile preAssemble(MainProgramFile mainFile) throws Exception{
 		mainFile=handleIncluding(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleOffsets(mainFile);
+		mainFile=handleLabels(mainFile);
 		mainFile=handleConstantReplacements(mainFile);
 		mainFile=handleExpressions(mainFile);
-		mainFile=handleIntervals(mainFile);
-		mainFile=handleLabels(mainFile);
-		System.out.println(mainFile.getFile().getAssemblyCode());
+		//System.out.print(mainFile.getFile().getAssemblyCode());
 		return mainFile;
 	}
 }

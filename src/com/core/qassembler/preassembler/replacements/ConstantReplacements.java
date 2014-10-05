@@ -6,6 +6,17 @@ import com.core.qassembler.memory.Memory;
 public class ConstantReplacements {
 	public ConstantReplacements(){ }
 	
+	public static String fixStrNewLines(String src){
+		StringBuilder strBldr=new StringBuilder(src);
+        while(src.contains("\\n")){
+            int newline_index=src.indexOf("\\n");
+            strBldr.setCharAt(newline_index, (char)10);
+            strBldr.deleteCharAt(newline_index+1);
+            src=strBldr.toString();
+        }
+        return src;
+	}
+	
 	public MainProgramFile replaceAll(MainProgramFile mainFile,Memory assemblerMemory){
 		String assembly=mainFile.getFile().getAssemblyCode();
 		// replace binary, hexadecimal and octal numbers (in strings) into decimal numbers (in strings)

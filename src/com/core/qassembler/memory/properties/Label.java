@@ -3,6 +3,8 @@ package com.core.qassembler.memory.properties;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.core.qassembler.file.MainProgramFile;
+
 public class Label {
 	private Map<String,Integer> label_list;
 	
@@ -22,7 +24,13 @@ public class Label {
 		return label_list.get(labelName);
 	}
 	
-	public void declare(String labelName,int address){
+	private void declare(String labelName,int address){
 		label_list.put(labelName, address);
+	}
+	
+	public MainProgramFile handleLabels(MainProgramFile mainFile){
+		// DECLARE LABELS AND SUBSTITUTE THEIR DECLARATIONS BY THE LINE DIRECTLY BELOW IT
+		
+		return mainFile;
 	}
 }
