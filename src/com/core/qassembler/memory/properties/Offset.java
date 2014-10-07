@@ -41,9 +41,11 @@ public class Offset implements QConstants{
 				if(ops.length>2) addOffset(line+1, Integer.parseInt(ops[2].trim()));
 				else if(ops.length==2) addOffset(line+1, ops[1].length()-1);
 			}
+			
 			//SET STRINGS' OFFSET
 			List<Object> stringMatches=RegexHandler.match(PATT_STRINGCONSTANT, assemblySplitted[line], 0, new int[]{1});
 			if(stringMatches.size()>0) addOffset(line+1,ConstantReplacements.fixStrNewLines(((String[])stringMatches.get(0))[0]).length()+1);
+			
 			//SET INTERVALS' OFFSET
 			List<Object> intervalMatches=RegexHandler.match(PATT_INTERVAL, assemblySplitted[line], 0, new int[]{1,2});
 			if(intervalMatches.size()>0){

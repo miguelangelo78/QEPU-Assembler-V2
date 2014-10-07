@@ -40,8 +40,8 @@ public class Variable implements QConstants{
 	}
 	
 	private void declare(String variable_name,int variable_bytelength){
-		variable_list.put(variable_name, new int[]{variable_lastaddress,variable_bytelength});
-		variable_lastaddress+=variable_bytelength+1;
+		variable_list.put(variable_name, new int[]{variable_lastaddress,variable_bytelength-1});
+		variable_lastaddress+=variable_bytelength;
 	}
 	
 	public MainProgramFile handleVariables(MainProgramFile mainFile){
@@ -58,7 +58,7 @@ public class Variable implements QConstants{
 				declare(variableName, extraBytes);
 			}
 			else
-				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].trim()).length()-1);
+				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length());
 				else declare(variableName,1);
 			
 			//SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:

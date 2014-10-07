@@ -2,6 +2,7 @@ package com.core.qassembler.preassembler;
 
 import java.util.List;
 import java.util.regex.Pattern;
+
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.Memory;
@@ -47,7 +48,7 @@ public class Preassembler implements QConstants{
 		return constReplace.replaceAll(mainFile, assemblerMemory);
 	}
 	
-	private MainProgramFile handleLabels(MainProgramFile mainFile){
+	private MainProgramFile handleLabels(MainProgramFile mainFile) throws Exception{
 		return assemblerMemory.handleLabels(mainFile);
 	}
 	
@@ -55,7 +56,7 @@ public class Preassembler implements QConstants{
 		// CLEAN SINGLE LINE COMMENTS, MULTILINE COMMENTS AND EMPTY LINES:
 		String assembly=mainFile.getFile().getAssemblyCode();
 		List<Object> commentsMatch=RegexHandler.match(PATT_COMMENT, assembly, Pattern.MULTILINE, null);
-		for(int i=0;i<commentsMatch.size();i++) assembly=assembly.replaceAll((String)commentsMatch.get(i), "");
+		for(int i=0;i<commentsMatch.size();i++) assembly=assembly.replace((String)commentsMatch.get(i), "");
 		mainFile.getFile().setAssemblyCode(assembly.replaceAll(PATT_EMPTYLINE, "")); //REMOVE EMPTY LINES:
 		return mainFile;
 	}
@@ -63,19 +64,20 @@ public class Preassembler implements QConstants{
 	private MainProgramFile handleOffsets(MainProgramFile mainFile){
 		assemblerMemory.handleOffsets(mainFile);
 		mainFile=assemblerMemory.handleVariables(mainFile);
-		mainFile=stringIntervals.replaceAll(mainFile);
 		mainFile=intervals.handleIntervals(mainFile);
+		mainFile=handleConstantReplacements(mainFile);
+		mainFile=stringIntervals.replaceAll(mainFile);
 		return mainFile;
 	}
 	
 	public MainProgramFile preAssemble(MainProgramFile mainFile) throws Exception{
+		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleIncluding(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleOffsets(mainFile);
 		mainFile=handleLabels(mainFile);
-		mainFile=handleConstantReplacements(mainFile);
+		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleExpressions(mainFile);
-		//System.out.print(mainFile.getFile().getAssemblyCode());
 		return mainFile;
 	}
 }

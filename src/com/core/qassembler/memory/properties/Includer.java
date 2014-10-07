@@ -64,7 +64,7 @@ public class Includer implements QConstants{
 	    	List<Object> mainLabelMatch=RegexHandler.match(PATT_MAINLABEL, assembly, Pattern.MULTILINE, new int[]{1});
 	    	if(mainLabelMatch.size()==0) throw new Exception("The label '"+FILEMAIN_ENTRYPOINT+":' has not been declared in the main file!");
 	    	if(mainLabelMatch.size()>1) throw new Exception("The label '@"+FILEMAIN_ENTRYPOINT+"' cannot be declared multiple times!");
-	    	assembly="jmp main\n"+assembly;
+	    	assembly="jmp @main\n"+assembly;
 	    	mainFile.createLinkedFile(assembly);
 		}
 		mainFile.getFile().setAssemblyCode(assembly);

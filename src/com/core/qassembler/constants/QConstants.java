@@ -25,7 +25,8 @@ public interface QConstants {
 	final String PATT_INCLUDING="^(?:.+?)?get.+?([a-z|A-Z].+?"+FILESOURCE_FORMAT+")";
 	final String PATT_FILEPATH=".+\\\\";
 	final String PATT_MAINLABEL="^(?:[ |	]+?)?("+FILEMAIN_ENTRYPOINT+")(?:[ |	]+?)?\\:";
-	final String PATT_LABEL="^(?:[ |	]+?)?([a-z]+?)(?:[ |	]+?)?\\:";
+	final String PATT_LABEL="^(?:[ |	]+?)?(.+?)(?:[ |	]+?)?\\:";
+	final String PATT_LABELREF="@(.+?)(?:[ |	,\\[\\]]|$)";
 	final String PATT_COMMENT="(?:\\;.+?$)|\\/\\*(?:(?:.|\n)+?)?\\*\\/|^(?:[ |	]+?)?$";
 	final String PATT_EMPTYLINE="(?m)^[ \\t]*\r?\n";
 	final String PATT_EXPRESSION_VAR="((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";
@@ -34,6 +35,8 @@ public interface QConstants {
 	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+)?\\)";
 	final String PATT_VARIABLEDECL="^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME="^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
-	final String PATT_STRINGCONSTANT="mov.+?\"(.+?)\"";
+	final String PATT_STRINGCONSTANT="mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
+	final String PATT_CHARCONSTANT="'(.)'";
 	final String PATT_INTERVAL="([0-9]+)(?:[ |	]+?)?>>+(?:[ |	]+?)?([0-9]+)";
+	final String PATT_FUNCIONCONTAINER="(.+?)\\[(.+?)\\]";
 }

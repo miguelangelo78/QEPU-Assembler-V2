@@ -34,6 +34,11 @@ public class ProgramFileHandler implements QConstants{
 		assembly_code_linecount=assembly_code_splitted.length;
 	}
 	
+	public void updateSplittedLines(){
+		assembly_code_splitted=this.assembly_code.split("\\n");
+		assembly_code_linecount=assembly_code_splitted.length;
+	}
+	
 	private String readFile(String filepath){
 		String text="";
 		try {
@@ -48,7 +53,7 @@ public class ProgramFileHandler implements QConstants{
 	}
 	
 	public String getLine(int index){
-		return assembly_code_splitted[index];
+		return assembly_code_splitted[index].trim();
 	}
 	
 	public String[] getLines(){

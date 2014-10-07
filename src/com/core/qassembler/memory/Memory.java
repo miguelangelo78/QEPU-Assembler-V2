@@ -52,7 +52,7 @@ public class Memory implements QConstants{
 		return variable_handler.handleVariables(mainFile);
 	}
 	
-	public MainProgramFile handleLabels(MainProgramFile mainFile){
+	public MainProgramFile handleLabels(MainProgramFile mainFile) throws Exception{
 		return label_handler.handleLabels(mainFile);
 	}
 	
