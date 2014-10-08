@@ -1,5 +1,7 @@
 package com.core.qassembler;
 
+import java.util.List;
+
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.file.ProgramFileHandler;
 import com.core.qassembler.preassembler.Preassembler;
@@ -19,7 +21,7 @@ public class QAssembler {
 		mainFile.getFile().updateSplittedLines();
 		
 		//MORE INITIALIZATIONS:
-		translator=new InstructionTranslator(preAssembler.getAssemblerMemory());
+		translator=new InstructionTranslator();
 		programCounter=0;
 		programCounterMax=mainFile.getFile().getCodeLineCount();
 		
@@ -29,16 +31,17 @@ public class QAssembler {
 	
 	private String assemble(String assembly_code){
 		String result="";
-		// DO ALL KINDS OF STUFFS HERE
 		try{
 			for(programCounter=0;programCounter<programCounterMax;programCounter++){
 				String line=mainFile.getFile().getLine(programCounter);
-				if(translator.isInstructionValid(line)) mainFile.insertMachineCode(translator.translate(line,programCounter));
+				List<Object> validate=translator.isInstructionValid(line,programCounter);
+				if((Boolean)validate.get(0))
+					mainFile.insertMachineCode(translator.translate(line,programCounter));
+				else throw new Exception("**** ASSEMBLING ERROR: "+(String)validate.get(1));
 			}
 		}catch(Exception e){
-			result=e.getMessage();
 			e.printStackTrace();
-			return result;
+			return e.getMessage();
 		}
 		mainFile.insertMachineCode(translator.getEOFoperands());
 		mainFile.createBinaryFile(); // CREATE THE FINAL FILE WHICH IS THE BINARY FILE

@@ -7,11 +7,14 @@ public interface QConstants {
 	final int OP1=1;
 	final int OP2=2;
 	final int OP3=3;
-	final int REGISTER=4;
-	final int QUBIT=5;
-	final int MEMORY=6;
-	final int FLAG=7;
-	final int CONSTANT=8;
+	final int REGISTER=0,REGISTER_SIZE=8; 		  // {K}
+	final int QUBIT=1,QUBIT_SIZE=1; 			  // <K>
+	final int MEMORYCONTAINER=2,MEMORY_SIZE=8;    // [K]
+	final int CONSTANT=3,CONSTANT_SIZE=8; 		  // K
+	final int[][] TYPES_SIZES=new int[][]{{REGISTER,REGISTER_SIZE}, // TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSMEBLED
+											 {QUBIT	  ,QUBIT_SIZE},
+											 {MEMORYCONTAINER,MEMORY_SIZE},
+											 {CONSTANT,CONSTANT_SIZE}};
 	final String FILESOURCE_FORMAT="qasm";
 	final String FILEBINARY_FORMAT="bin";
 	final String FILEMAIN_ENTRYPOINT="main";

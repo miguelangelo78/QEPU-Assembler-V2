@@ -59,7 +59,6 @@ public class MainProgramFile implements QConstants{
 		closeFile();
 	}
 	
-	
 	public void insertMachineCode(Integer[]operands){
 		machinecode.addAll(Arrays.asList(operands));
 	}

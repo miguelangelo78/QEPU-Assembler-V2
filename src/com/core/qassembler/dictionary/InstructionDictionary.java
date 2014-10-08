@@ -5,80 +5,79 @@ import com.core.qassembler.constants.QConstants;
 
 public class InstructionDictionary implements QConstants{
 	@SuppressWarnings("serial")
-	private static HashMap<String,int[]> instructionDictionary=new HashMap<String,int[]>(){{
+	private static HashMap<String,Object[]> instructionDictionary=new HashMap<String,Object[]>(){{
         //INSTRUCTION SET AND OPERAND TYPES:
-        put("",new int[]{FUNC,0}); // THIS IS AN EMPTY LINE AND NEEDS TO BE IGNORED
-        put("MOV",new int[]{FUNC,2,-1});
-        put("MOQ",new int[]{FUNC,2,1});
-        put("MOR",new int[]{FUNC,2,2});
-        put("MOM",new int[]{FUNC,2,3});
-        put("STORE",new int[]{FUNC,2,4});
-        put("LOAD",new int[]{FUNC,2,5});
-        put("CRW",new int[]{FUNC,2,6});
-        put("CQW*",new int[]{FUNC,2,7});
-        put("POP",new int[]{FUNC,1,8});
-        put("PUSH",new int[]{FUNC,1,9});
-        put("CMTH",new int[]{FUNC,2,10});
-        put("CMPH",new int[]{FUNC,2,11});
-        put("CMP",new int[]{FUNC,2,12});
-        put("SET",new int[]{FUNC,1,13});
-        put("GET",new int[]{FUNC,1,14});
-        put("BES",new int[]{FUNC,1,15});
-        put("BLW",new int[]{FUNC,1,16});
-        put("BLE",new int[]{FUNC,1,17});
-        put("BEQ",new int[]{FUNC,1,18});
-        put("BGE",new int[]{FUNC,1,19});
-        put("BGR",new int[]{FUNC,1,20});
-        put("BDI",new int[]{FUNC,1,21});
-        put("BZE",new int[]{FUNC,1,22});
-        put("BNZ",new int[]{FUNC,1,23});
-        put("CALL",new int[]{FUNC,1,24});
-        put("RET",new int[]{FUNC,0,25});
-        put("JMP",new int[]{FUNC,1,26});
-        put("ADD",new int[]{FUNC,3,27});
-        put("SUB",new int[]{FUNC,3,28});
-        put("MUL",new int[]{FUNC,3,29});
-        put("DIV",new int[]{FUNC,3,30});
-        put("AND",new int[]{FUNC,3,31});
-        put("OR",new int[]{FUNC,3,32});
-        put("NOR",new int[]{FUNC,3,33});
-        put("XOR",new int[]{FUNC,3,34});
-        put("NAND",new int[]{FUNC,3,35});
-        put("NOT",new int[]{FUNC,2,36});
-        put("SHL",new int[]{FUNC,3,37});
-        put("SHR",new int[]{FUNC,3,38});
-        put("INT",new int[]{FUNC,1,39});
-        put("DELAY",new int[]{FUNC,1,40});
-        put("NOP",new int[]{FUNC,0,41});
-        put("HLT",new int[]{FUNC,0,42});
-        put("X",new int[]{FUNC,1,43});
-        put("Y",new int[]{FUNC,1,44});
-        put("Z",new int[]{FUNC,1,45});
-        put("H",new int[]{FUNC,1,46});
-        put("S",new int[]{FUNC,1,47});
-        put("T",new int[]{FUNC,1,48});
-        put("ROX",new int[]{FUNC,1,49});
-        put("ROY",new int[]{FUNC,1,50});
-        put("ROZ",new int[]{FUNC,1,51});
-        put("CNOT",new int[]{FUNC,2,52});
-        put("CSIGN",new int[]{FUNC,2,53});
-        put("SWAP",new int[]{FUNC,2,54});
-        put("INC",new int[]{FUNC,2,55});
-        put("DEC",new int[]{FUNC,2,56});
-        put("SWAPQ",new int[]{FUNC,2,57});
-        put("SWAPI",new int[]{FUNC,2,58});
-        put("CSWAP",new int[]{FUNC,3,59});
-        put("TOFF",new int[]{FUNC,3,60});
-        put("DEU",new int[]{FUNC,3,61});
-        put("R",new int[]{REGISTER,0,-1});
-        put("Q",new int[]{QUBIT,0,-1});
-        put("M",new int[]{MEMORY,0,-1});
-        put("@",new int[]{FUNC,1,-1});  // LABELS
-        put("$",new int[]{FUNC,3,-1});  // VARIABLES ($varname content size)
-        put("K",new int[]{CONSTANT,0}); // MAYBE WILL USE THIS*/
+		
+		//SINTAX:
+		//put("function_name",new Object[]{new int[]{x,y},new int[]{z,a,b},new int[]{c,d},new int[]{e,f,g,h}});
+		//FORMAT: OPERAND COUNT,FUNCTION CODE,OPERAND 1 TYPES,OPERAND 2 TYPES, OPERAND 3 TYPES (ALL 3 ARE OPTIONAL)
+		
+		put("",new Object[]{new int[]{0}}); // THIS IS AN EMPTY LINE AND NEEDS TO BE IGNORED
+		put("MOV",new Object[]{new int[]{2,-1},new int[]{MEMORYCONTAINER,REGISTER,QUBIT},new int[]{MEMORYCONTAINER,REGISTER,QUBIT,CONSTANT}});
+        put("MOQ",new Object[]{new int[]{2,1},new int[]{},new int[]{}});
+        put("MOR",new Object[]{new int[]{2,2},new int[]{},new int[]{}});
+        put("MOM",new Object[]{new int[]{2,3},new int[]{},new int[]{}});
+        put("STORE",new Object[]{new int[]{2,4},new int[]{},new int[]{}});
+        put("LOAD",new Object[]{new int[]{2,5},new int[]{},new int[]{}});
+        put("CRW",new Object[]{new int[]{2,6},new int[]{},new int[]{}});
+        put("CQW",new Object[]{new int[]{2,7},new int[]{},new int[]{}});
+        put("POP",new Object[]{new int[]{1,8},new int[]{}});
+        put("PUSH",new Object[]{new int[]{1,9},new int[]{}});
+        put("CMTH",new Object[]{new int[]{2,10},new int[]{},new int[]{}});
+        put("CMPH",new Object[]{new int[]{2,11},new int[]{},new int[]{}});
+        put("CMP",new Object[]{new int[]{2,12},new int[]{},new int[]{}});
+        put("SET",new Object[]{new int[]{1,13},new int[]{}});
+        put("GET",new Object[]{new int[]{1,14},new int[]{}});
+        put("BES",new Object[]{new int[]{1,15},new int[]{}});
+        put("BLW",new Object[]{new int[]{1,16},new int[]{}});
+        put("BLE",new Object[]{new int[]{1,17},new int[]{}});
+        put("BEQ",new Object[]{new int[]{1,18},new int[]{}});
+        put("BGE",new Object[]{new int[]{1,19},new int[]{}});
+        put("BGR",new Object[]{new int[]{1,20},new int[]{}});
+        put("BDI",new Object[]{new int[]{1,21},new int[]{}});
+        put("BZE",new Object[]{new int[]{1,22},new int[]{}});
+        put("BNZ",new Object[]{new int[]{1,23},new int[]{}});
+        put("CALL",new Object[]{new int[]{1,24},new int[]{}});
+        put("RET",new Object[]{new int[]{0,25}});
+        put("JMP",new Object[]{new int[]{1,26},new int[]{}});
+        put("ADD",new Object[]{new int[]{3,27},new int[]{},new int[]{},new int[]{}});
+        put("SUB",new Object[]{new int[]{3,28},new int[]{},new int[]{},new int[]{}});
+        put("MUL",new Object[]{new int[]{3,29},new int[]{},new int[]{},new int[]{}});
+        put("DIV",new Object[]{new int[]{3,30},new int[]{},new int[]{},new int[]{}});
+        put("AND",new Object[]{new int[]{3,31},new int[]{},new int[]{},new int[]{}});
+        put("OR",new Object[]{new int[]{3,32},new int[]{},new int[]{},new int[]{}});
+        put("NOR",new Object[]{new int[]{3,33},new int[]{},new int[]{},new int[]{}});
+        put("XOR",new Object[]{new int[]{3,34},new int[]{},new int[]{},new int[]{}});
+        put("NAND",new Object[]{new int[]{3,35},new int[]{},new int[]{},new int[]{}});
+        put("NOT",new Object[]{new int[]{2,36},new int[]{},new int[]{},new int[]{}});
+        put("SHL",new Object[]{new int[]{3,37},new int[]{},new int[]{},new int[]{}});
+        put("SHR",new Object[]{new int[]{3,38},new int[]{},new int[]{},new int[]{}});
+        put("INT",new Object[]{new int[]{1,39},new int[]{}});
+        put("DELAY",new Object[]{new int[]{1,40},new int[]{}});
+        put("NOP",new Object[]{new int[]{0,41}});
+        put("HLT",new Object[]{new int[]{0,42}});
+        put("X",new Object[]{new int[]{1,43},new int[]{}});
+        put("Y",new Object[]{new int[]{1,44},new int[]{}});
+        put("Z",new Object[]{new int[]{1,45},new int[]{}});
+        put("H",new Object[]{new int[]{1,46},new int[]{}});
+        put("S",new Object[]{new int[]{1,47},new int[]{}});
+        put("T",new Object[]{new int[]{1,48},new int[]{}});
+        put("ROX",new Object[]{new int[]{1,49},new int[]{}});
+        put("ROY",new Object[]{new int[]{1,50},new int[]{}});
+        put("ROZ",new Object[]{new int[]{1,51},new int[]{}});
+        put("CNOT",new Object[]{new int[]{2,52},new int[]{},new int[]{}});
+        put("CSIGN",new Object[]{new int[]{2,53},new int[]{},new int[]{}});
+        put("SWAP",new Object[]{new int[]{2,54},new int[]{}});
+        put("INC",new Object[]{new int[]{2,55},new int[]{},new int[]{}});
+        put("DEC",new Object[]{new int[]{2,56},new int[]{},new int[]{}});
+        put("SWAPQ",new Object[]{new int[]{2,57},new int[]{},new int[]{}});
+        put("SWAPI",new Object[]{new int[]{2,58},new int[]{},new int[]{}});
+        put("CSWAP",new Object[]{new int[]{3,59},new int[]{},new int[]{},new int[]{}});
+        put("TOFF",new Object[]{new int[]{3,60},new int[]{},new int[]{},new int[]{}});
+        put("DEU",new Object[]{new int[]{3,61},new int[]{},new int[]{},new int[]{}});
     }};
     
-    public int [] getInstructionByIndex(int index){
+    public Object [] getInstructionByIndex(int index){
     	if(index>instructionDictionary.size() && index<instructionDictionary.size()) return null;
     	
     	for(String key:instructionDictionary.keySet()){
@@ -88,19 +87,19 @@ public class InstructionDictionary implements QConstants{
     	return null;
     }
     
-    public int[] getInstruction(String instruction){
-    	return instructionDictionary.get(instruction);
+    public boolean instructionExists(String function){
+    	return instructionDictionary.containsKey(function);
     }
     
-    public int getInstructionType(String instruction){
-    	return instructionDictionary.get(instruction)[0];
-    } 
-    
-    public int getInstructionWidth(String instruction){
-    	return instructionDictionary.get(instruction)[1];
+    public Object[] getInstruction(String function){
+    	return instructionDictionary.get(function);
     }
     
-    public int getInstructionCode(String instruction){
-		return instructionDictionary.get(instruction)[2];
+    public int getInstructionWidth(String function){
+    	return ((int[])instructionDictionary.get(function)[0])[0];
+    }
+    
+    public int getInstructionCode(String function){
+		return ((int[])instructionDictionary.get(function)[0])[1];
     }
 }
