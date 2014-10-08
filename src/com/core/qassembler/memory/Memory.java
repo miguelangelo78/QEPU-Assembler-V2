@@ -2,7 +2,6 @@ package com.core.qassembler.memory;
 
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
-import com.core.qassembler.file.ProgramFileHandler;
 import com.core.qassembler.memory.properties.Includer;
 import com.core.qassembler.memory.properties.Label;
 import com.core.qassembler.memory.properties.Offset;
