@@ -29,7 +29,7 @@ public interface QConstants {
 	final String PATT_FILEPATH=".+\\\\";
 	final String PATT_MAINLABEL="^(?:[ |	]+?)?("+FILEMAIN_ENTRYPOINT+")(?:[ |	]+?)?\\:";
 	final String PATT_LABEL="^(?:[ |	]+?)?(.+?)(?:[ |	]+?)?\\:";
-	final String PATT_LABELREF="@(.+?)(?:[ |	,\\[\\]]|$)";
+	final String PATT_LABELREF="@(.+?)(?:[ |	,\\[\\]]|$|[^a-z0-9_])";
 	final String PATT_COMMENT="(?:\\;.+?$)|\\/\\*(?:(?:.|\n)+?)?\\*\\/|^(?:[ |	]+?)?$";
 	final String PATT_EMPTYLINE="(?m)^[ \\t]*\r?\n";
 	final String PATT_EXPRESSION_VAR="((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";

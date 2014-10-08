@@ -41,7 +41,7 @@ public class Variable implements QConstants{
 	
 	private void declare(String variable_name,int variable_bytelength){
 		variable_list.put(variable_name, new int[]{variable_lastaddress,variable_bytelength-1});
-		variable_lastaddress+=variable_bytelength;
+		variable_lastaddress+=variable_bytelength+1;
 	}
 	
 	public MainProgramFile handleVariables(MainProgramFile mainFile){

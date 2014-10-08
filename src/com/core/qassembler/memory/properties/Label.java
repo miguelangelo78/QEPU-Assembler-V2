@@ -42,7 +42,7 @@ public class Label implements QConstants{
 				String labelName=(String)((String[])labelDeclList.get(i))[1];
 				String wholeMatch=(String)((String[])labelDeclList.get(i))[0];
 				declare(labelName, line);
-				assembly=assembly.replace(wholeMatch, "");
+				assembly=assembly.replace(wholeMatch, "NOP");
 			}
 		}
 		
@@ -50,7 +50,7 @@ public class Label implements QConstants{
 		for(int i=0;i<labelRefList.size();i++){
 			String labelName=(String)((String[])labelRefList.get(i))[0];
 			if(!isLabelDeclared(labelName)) throw new Exception("The label '"+labelName+"' was not previously declared.");
-			else assembly=assembly.replace("@"+labelName, ""+getAddress(labelName));
+			else assembly=assembly.replaceFirst("@"+labelName, ""+getAddress(labelName));
 		}
 		
 		mainFile.getFile().setAssemblyCode(assembly);
