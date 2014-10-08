@@ -64,9 +64,9 @@ public class Preassembler implements QConstants{
 	private MainProgramFile handleOffsets(MainProgramFile mainFile){
 		assemblerMemory.handleOffsets(mainFile);
 		mainFile=assemblerMemory.handleVariables(mainFile);
+		mainFile=stringIntervals.replaceAll(mainFile);
 		mainFile=intervals.handleIntervals(mainFile);
 		mainFile=handleConstantReplacements(mainFile);
-		mainFile=stringIntervals.replaceAll(mainFile);
 		return mainFile;
 	}
 	
