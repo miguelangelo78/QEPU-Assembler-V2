@@ -35,7 +35,7 @@ public interface QConstants {
 	final String PATT_EXPRESSION_VAR="((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";
 	final String PATT_EXPRESSION="([0-9]+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?([0-9]+?$)";
 	final String PATT_EXPRESSION_V2="[^a-z|0-9](?:[ |	|\\(]+)?[0-9]+?(?:[ |	]+?)?(?:[\\(\\)+\\-\\*\\/]+?(?:[ |	]+?)?[0-9])+(?:[ |	|\\)]+)?";
-	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+)?\\)";
+	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+?)?\\)";
 	final String PATT_VARIABLEDECL="^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME="^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT="mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
