@@ -13,6 +13,9 @@ public class ExpressionResolver implements QConstants{
 	
 	public ExpressionResolver(){
 		expressionParser=new JEP();
+		expressionParser.addStandardFunctions();
+		expressionParser.addStandardConstants();
+		expressionParser.addComplex();
 	}
 	
 	public MainProgramFile resolve(MainProgramFile mainFile,Memory assemblerMemory){
