@@ -13,10 +13,11 @@ public class InstructionDictionary implements QConstants{
 		//FORMAT: OPERAND COUNT,FUNCTION CODE,OPERAND 1 TYPES,OPERAND 2 TYPES, OPERAND 3 TYPES (ALL 3 ARE OPTIONAL)
 		
 		put("",			new Object[]{new int[]{0}}); // THIS IS AN EMPTY LINE AND NEEDS TO BE IGNORED
-		put("MOV",		new Object[]{new int[]{2,-1},new int[]{MEMORYCONTAINER,REGISTER,QUBIT},new int[]{MEMORYCONTAINER,REGISTER,QUBIT,CONSTANT}});
+		put("MOV",		new Object[]{new int[]{2,-1},new int[]{MEMORYCONTAINER,REGISTER,QUBIT},new int[]{MEMORYCONTAINER,REGISTER,REGISTER_POINTER,QUBIT,CONSTANT}});
         put("MOQ",		new Object[]{new int[]{2,1},new int[]{QUBIT},new int[]{QUBIT}});
         put("MOR",		new Object[]{new int[]{2,2},new int[]{REGISTER},new int[]{REGISTER}});
         put("MOM",		new Object[]{new int[]{2,3},new int[]{MEMORYCONTAINER},new int[]{MEMORYCONTAINER}});
+        put("MOMI",		new Object[]{new int[]{2,82},new int[]{MEMORYCONTAINER},new int[]{REGISTER}});
         put("STORE",	new Object[]{new int[]{2,4},new int[]{MEMORYCONTAINER},new int[]{REGISTER}});
         put("LOAD",		new Object[]{new int[]{2,5},new int[]{REGISTER},new int[]{MEMORYCONTAINER}});
         put("CMW",		new Object[]{new int[]{2,6},new int[]{MEMORYCONTAINER},new int[]{CONSTANT}});

@@ -69,7 +69,7 @@ public class InstructionTranslator implements QConstants{
 		try{ op3=Misc.extractNumber(ops[3]); }catch(Exception e){}
 		
 		//RETURN THEIR VALUES (IF THE FUNCTION ISN'T -1)
-		if(functionCode==-1) functionCode=manualTranslator.translate(ops); // FUNCTION NEEDS TO BE WRITTEN MANUALLY
+		if(functionCode==-1) functionCode=manualTranslator.translate(ops,programcounter); // FUNCTION NEEDS TO BE WRITTEN MANUALLY
 		
 		return new Integer[]{functionCode,op1,op2,op3};
 	}

@@ -19,6 +19,7 @@ public class TypeExtractor implements QConstants{
 			case '<': type=QUBIT; break;
 			case '|': type=QUBIT_THETA; break;
 			case '!': type=QUBIT_PHI; break;
+			case '#': type=REGISTER_POINTER; break;
 			default: type=CONSTANT;
 		}
 		return type;

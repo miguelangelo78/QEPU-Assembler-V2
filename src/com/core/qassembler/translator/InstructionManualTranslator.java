@@ -15,7 +15,7 @@ public class InstructionManualTranslator implements QConstants{
 		ins_dictionary=new InstructionDictionary();
 	}
 	
-	public int translate(String [] ops){
+	public int translate(String [] ops,int programcounter) throws Exception{
 		int functionCode=-1;
 		Integer [] types=extractor.getTypeExtractor().extractAll(ops);
 		switch(ops[0]){
@@ -34,6 +34,9 @@ public class InstructionManualTranslator implements QConstants{
 				else
 				if(types[0]==MEMORYCONTAINER && types[1]==CONSTANT)
 					functionCode=ins_dictionary.getInstructionCode("CMW");
+				else
+				if(types[0]==MEMORYCONTAINER && types[1]==REGISTER_POINTER)
+					functionCode=ins_dictionary.getInstructionCode("MOMI");
 				else
 				if(types[0]==REGISTER && types[1]==CONSTANT)
 					functionCode=ins_dictionary.getInstructionCode("CRW");
@@ -61,6 +64,7 @@ public class InstructionManualTranslator implements QConstants{
 				else
 				if(types[0]==QUBIT_PHI && types[1]==CONSTANT)
 					functionCode=ins_dictionary.getInstructionCode("CMPH");
+				else throw new Exception("Instruction '"+ops[0]+"' (line "+programcounter+"). The operand sizes do not match/are incompatible with each other.");
 				break;
 			case "ADD": 
 				if(types[1]==REGISTER && types[2]==REGISTER)

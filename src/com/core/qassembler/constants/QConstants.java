@@ -8,13 +8,15 @@ public interface QConstants {
 	final int OP2=2;
 	final int OP3=3;
 	final int REGISTER=0,REGISTER_SIZE=8; 		  // {K}
-	final int QUBIT=1,QUBIT_THETA=2,QUBIT_PHI=3,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
-	final int MEMORYCONTAINER=4,MEMORY_SIZE=8;    // [K]
-	final int CONSTANT=5,CONSTANT_SIZE=8; 		  // K
+	final int REGISTER_POINTER=1; // %K%
+	final int QUBIT=2,QUBIT_THETA=3,QUBIT_PHI=4,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
+	final int MEMORYCONTAINER=5,MEMORY_SIZE=8;    // [K]
+	final int CONSTANT=6,CONSTANT_SIZE=8; 		  // K
 	final int[][] TYPES_SIZES=new int[][]{{REGISTER,REGISTER_SIZE}, // TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSMEBLED
-											 {QUBIT	  ,QUBIT_SIZE},
-											 {MEMORYCONTAINER,MEMORY_SIZE},
-											 {CONSTANT,CONSTANT_SIZE}};
+										  {REGISTER_POINTER,REGISTER_SIZE},
+										  {QUBIT  ,QUBIT_SIZE},
+										  {MEMORYCONTAINER,MEMORY_SIZE},
+										  {CONSTANT,CONSTANT_SIZE}};
 	final String FILESOURCE_FORMAT="qasm";
 	final String FILEBINARY_FORMAT="bin";
 	final String FILEMAIN_ENTRYPOINT="main";
