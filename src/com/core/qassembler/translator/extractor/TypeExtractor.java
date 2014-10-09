@@ -11,6 +11,8 @@ public class TypeExtractor implements QConstants{
 	
 	public int extract(String operand){
 		int type=-1;
+		if(operand.charAt(0)=='[' && operand.charAt(1)=='{') return REGISTER_POINTER;
+		
 		switch(operand.charAt(0)){
 			case '[': type=MEMORYCONTAINER; break;
 			case 'M': case 'm': type=MEMORYCONTAINER; break;
@@ -19,8 +21,7 @@ public class TypeExtractor implements QConstants{
 			case '<': type=QUBIT; break;
 			case '|': type=QUBIT_THETA; break;
 			case '!': type=QUBIT_PHI; break;
-			case '#': type=REGISTER_POINTER; break;
-			default: type=CONSTANT;
+			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9': type=CONSTANT; break;
 		}
 		return type;
 	}

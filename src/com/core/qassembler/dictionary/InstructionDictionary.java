@@ -132,6 +132,6 @@ public class InstructionDictionary implements QConstants{
     }
     
     public int getInstructionCode(String function){
-		return ((int[])instructionDictionary.get(function)[0])[1];
+    	return ((int[])instructionDictionary.get(function)[0])[1];
     }
 }
