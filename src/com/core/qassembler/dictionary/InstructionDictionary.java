@@ -17,8 +17,8 @@ public class InstructionDictionary implements QConstants{
         put("MOQ",		new Object[]{new int[]{2,1},new int[]{QUBIT},new int[]{QUBIT}});
         put("MOR",		new Object[]{new int[]{2,2},new int[]{REGISTER},new int[]{REGISTER}});
         put("MOM",		new Object[]{new int[]{2,3},new int[]{MEMORYCONTAINER},new int[]{MEMORYCONTAINER}});
-        put("MOMI",		new Object[]{new int[]{2,4},new int[]{MEMORYCONTAINER},new int[]{REGISTER}});
-        put("MOMD",		new Object[]{new int[]{2,5},new int[]{REGISTER},new int[]{REGISTER}});
+        put("MORI",		new Object[]{new int[]{2,4},new int[]{REGISTER},new int[]{REGISTER}});
+        put("MORD",		new Object[]{new int[]{2,5},new int[]{REGISTER},new int[]{REGISTER}});
         put("STORE",	new Object[]{new int[]{2,6},new int[]{MEMORYCONTAINER},new int[]{REGISTER}});
         put("LOAD",		new Object[]{new int[]{2,7},new int[]{REGISTER},new int[]{MEMORYCONTAINER}});
         put("CMW",		new Object[]{new int[]{2,8},new int[]{MEMORYCONTAINER},new int[]{CONSTANT}});

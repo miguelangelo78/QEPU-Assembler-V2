@@ -35,11 +35,11 @@ public class InstructionManualTranslator implements QConstants{
 				if(types[0]==MEMORYCONTAINER && types[1]==CONSTANT)
 					functionCode=ins_dictionary.getInstructionCode("CMW");
 				else
-				if(types[0]==MEMORYCONTAINER && types[1]==REGISTER_POINTER)
-					functionCode=ins_dictionary.getInstructionCode("MOMI");
+				if(types[0]==REGISTER && types[1]==REGISTER_POINTER)
+					functionCode=ins_dictionary.getInstructionCode("MORI");
 				else
 				if(types[0]==REGISTER_POINTER && types[1]==REGISTER)
-					functionCode=ins_dictionary.getInstructionCode("MOMD");
+					functionCode=ins_dictionary.getInstructionCode("MORD");
 				else
 				if(types[0]==REGISTER && types[1]==CONSTANT)
 					functionCode=ins_dictionary.getInstructionCode("CRW");
