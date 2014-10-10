@@ -16,14 +16,12 @@ import com.utils.regex.RegexHandler;
 public class Preassembler implements QConstants{
 	private Memory assemblerMemory;
 	private ExpressionResolver expResolver;
-	private ConstantReplacements constReplace;
 	private Interval intervals;
 	private StringInterval stringIntervals;
 
 	public Preassembler(String mainFilePath){
 		assemblerMemory=new Memory(mainFilePath);
 		expResolver=new ExpressionResolver();
-		constReplace=new ConstantReplacements();
 		intervals=new Interval();
 		stringIntervals=new StringInterval();
 	}
@@ -45,7 +43,7 @@ public class Preassembler implements QConstants{
 	}
 	
 	private MainProgramFile handleConstantReplacements(MainProgramFile mainFile){
-		return constReplace.replaceAll(mainFile, assemblerMemory);
+		return ConstantReplacements.replaceAll(mainFile, assemblerMemory);
 	}
 	
 	private MainProgramFile handleLabels(MainProgramFile mainFile) throws Exception{
@@ -65,8 +63,8 @@ public class Preassembler implements QConstants{
 		assemblerMemory.handleOffsets(mainFile);
 		mainFile=assemblerMemory.handleVariables(mainFile);
 		mainFile=stringIntervals.replaceAll(mainFile);
-		mainFile=intervals.handleIntervals(mainFile);
 		mainFile=handleConstantReplacements(mainFile);
+		mainFile=intervals.handleIntervals(mainFile);
 		return mainFile;
 	}
 	

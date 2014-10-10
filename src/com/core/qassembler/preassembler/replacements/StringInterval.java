@@ -22,7 +22,7 @@ public class StringInterval implements QConstants{
 					String [] ops=((String)stringMatch.get(i)).split(",");
 					List<Object> function_containerMatch=RegexHandler.match(PATT_FUNCIONCONTAINER, ops[0],0, new int[]{1,2});
 					String function=((String[])function_containerMatch.get(0))[0].trim();
-					String content=ops[1].replace("\"", "").trim();
+					String content=ConstantReplacements.fixEscapes(ops[1].replace("\"", "").trim());
 					int containerAddress=Integer.parseInt(((String[])function_containerMatch.get(0))[1].trim());
 					String buildStringReplacement="";
 					int buffLength=0;
@@ -41,10 +41,14 @@ public class StringInterval implements QConstants{
 			}
 		}
 		//SUBSTITUTE CHARS INTO INTS:
-		List<Object> charMatch=RegexHandler.match(PATT_CHARCONSTANT, assembly, Pattern.MULTILINE, new int[]{1});
-		for(int i=0;i<charMatch.size();i++){
-			char character=((String[])charMatch.get(i))[0].charAt(0);
-			assembly=assembly.replace("'"+character+"'", ""+(int)character);
+		List<Object> charMatchList=RegexHandler.match(PATT_CHARCONSTANT, assembly, Pattern.MULTILINE, new int[]{0,1});
+		for(int i=0;i<charMatchList.size();i++){
+			String wholeMatch=((String[])charMatchList.get(i))[0];
+			String charMatch=((String[])charMatchList.get(i))[1];
+			char character=charMatch.charAt(0);
+			if(character=='\\') //USING A ESCAPED SEQUENCE
+				character=ConstantReplacements.fixEscapes(charMatch).charAt(0);
+			assembly=assembly.replace(wholeMatch, ""+(int)character);
 		}
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;

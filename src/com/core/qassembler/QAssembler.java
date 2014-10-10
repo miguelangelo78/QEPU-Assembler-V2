@@ -31,17 +31,19 @@ public class QAssembler {
 	
 	private String assemble(String assembly_code){
 		String result="";
-		try{
-			for(programCounter=0;programCounter<programCounterMax;programCounter++){
-				String line=mainFile.getFile().getLine(programCounter);
-				List<Object> validate=translator.isInstructionValid(line,programCounter);
-				if((Boolean)validate.get(0))
-					mainFile.insertMachineCode(translator.translate(line,programCounter));
-				else throw new Exception("**** ASSEMBLING ERROR: "+(String)validate.get(1));
+		if(assembly_code.trim().length()>0){ // THE FILE CANNOT BE EMPTY
+			try{
+				for(programCounter=0;programCounter<programCounterMax;programCounter++){
+					String line=mainFile.getFile().getLine(programCounter);
+					List<Object> validate=translator.isInstructionValid(line,programCounter);
+					if((Boolean)validate.get(0))
+						mainFile.insertMachineCode(translator.translate(line,programCounter));
+					else throw new Exception("**** ASSEMBLING ERROR: "+(String)validate.get(1));
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				return e.getMessage();
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-			return e.getMessage();
 		}
 		mainFile.insertMachineCode(translator.getEOFoperands());
 		mainFile.createBinaryFile(); // CREATE THE FINAL FILE WHICH IS THE BINARY FILE

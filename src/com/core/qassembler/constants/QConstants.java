@@ -41,7 +41,12 @@ public interface QConstants {
 	final String PATT_VARIABLEDECL="^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME="^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT="mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
-	final String PATT_CHARCONSTANT="'(.)'";
+	final String PATT_CHARCONSTANT="'(.+?)'";
 	final String PATT_INTERVAL="([0-9]+)(?:[ |	]+?)?>>+(?:[ |	]+?)?([0-9]+)";
 	final String PATT_FUNCIONCONTAINER="(.+?)\\[(.+?)\\]";
+	final String PATT_HEX="0x[0-9a-f]+";
+	final String PATT_BIN="0b[0-1]+";
+	final String PATT_OCTAL="0o[0-7]+";
+	final String PATT_ALLBASES="(?:0x[0-9a-f]+)|(?:0b[0-1]+)|(?:0o[0-7]+)";
+	
 }
