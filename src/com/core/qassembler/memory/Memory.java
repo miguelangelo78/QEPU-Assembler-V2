@@ -47,7 +47,7 @@ public class Memory implements QConstants{
 		return includer.include(mainFile);
 	}
 	
-	public MainProgramFile handleVariables(MainProgramFile mainFile){
+	public MainProgramFile handleVariables(MainProgramFile mainFile) throws Exception{
 		return variable_handler.handleVariables(mainFile);
 	}
 	

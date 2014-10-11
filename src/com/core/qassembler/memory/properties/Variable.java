@@ -39,12 +39,13 @@ public class Variable implements QConstants{
 		return variable_list.get(variableName)[1];
 	}
 	
-	private void declare(String variable_name,int variable_bytelength){
-		variable_list.put(variable_name, new int[]{variable_lastaddress,variable_bytelength-1});
-		variable_lastaddress+=variable_bytelength+1;
+	private void declare(String variable_name,int variable_bytelength) throws Exception{
+		if(variable_bytelength<=0) throw new Exception(" **** ASSEMBLER ERROR: The variable '"+variable_name+"' must have more than 0 bytes of size.");
+		variable_list.put(variable_name, new int[]{variable_lastaddress,variable_bytelength});
+		variable_lastaddress+=variable_bytelength;
 	}
 	
-	public MainProgramFile handleVariables(MainProgramFile mainFile){
+	public MainProgramFile handleVariables(MainProgramFile mainFile) throws Exception{
 		String assembly=mainFile.getFile().getAssemblyCode();
 		List<Object> variableMatches=RegexHandler.match(PATT_VARIABLEDECL, assembly, Pattern.MULTILINE, null);
 		for(int i=0;i<variableMatches.size();i++){
@@ -55,15 +56,18 @@ public class Variable implements QConstants{
 			
 			if(variableDeclaration.length>2){
 				extraBytes=Integer.parseInt(variableDeclaration[2].trim());
-				declare(variableName, extraBytes);
+				declare(variableName, extraBytes); // FOR FIXED SIZED VARIABLES
 			}
-			else
-				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length());
+			else // FOR STRINGS (NON FIXED VARIABLES)
+				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()+1);
 				else declare(variableName,1);
 			
 			//SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
 			String variableReplacement="mov ["+getVarAddress(variableName)+"],"+variableDeclaration[1].trim();
-			if(variableDeclaration.length>2) variableReplacement+=","+extraBytes;
+			if(variableDeclaration.length>2)
+				if(!variableDeclaration[1].contains("\"")) // FIX FOR FIXED SIZED CONSTANTS:
+					for(int j=1;j<extraBytes;j++) variableReplacement+="\nmov ["+(getVarAddress(variableName)+j)+"],0";
+				else variableReplacement+=","+extraBytes;
 			assembly=assembly.replace(((String)variableMatches.get(i)),variableReplacement);
 		}
 		//SUBSTITUTE ALL THE REST (VARS) INTO CONSTANTS (THEIR ADDRESSES)
