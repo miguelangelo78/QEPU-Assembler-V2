@@ -10,7 +10,7 @@ public interface QConstants {
 	final int OP2=2;
 	final int OP3=3;
 	final int REGISTER=0,REGISTER_SIZE=8; 		  // {K}
-	final int REGISTER_POINTER=1; // %K%
+	final int REGISTER_POINTER=1; // {K}
 	final int QUBIT=2,QUBIT_THETA=3,QUBIT_PHI=4,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
 	final int MEMORYCONTAINER=5,MEMORY_SIZE=8;    // [K]
 	final int CONSTANT=6,CONSTANT_SIZE=8; 		  // K

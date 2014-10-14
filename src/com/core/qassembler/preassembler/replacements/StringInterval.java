@@ -34,7 +34,7 @@ public class StringInterval implements QConstants{
 					int j;
 					for(j=0;j<buffLength;j++)
 						if(j>=content.length()) buildStringReplacement+=function+" ["+(containerAddress+j)+"],0\n";
-						else buildStringReplacement+=function+" ["+(containerAddress+j)+"],"+((int)content.charAt(j))+"\n";
+						else buildStringReplacement+=function+" ["+(containerAddress+j)+"],"+((int)content.charAt(j))+(j<buffLength-1?"\n":"");
 					//buildStringReplacement+=function+" ["+(containerAddress+j)+"],0"; // THIS GIVES A FIXED STRING TERMINATOR TO THE STRING
 					assembly=assembly.replace((String)stringMatch.get(i), buildStringReplacement);
 				}

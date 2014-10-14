@@ -31,6 +31,7 @@ public class ConstantReplacements implements QConstants{
 	
 	public static MainProgramFile replaceAll(MainProgramFile mainFile,Memory assemblerMemory){
 		String assembly=mainFile.getFile().getAssemblyCode();
+		
 		// replace binary, hexadecimal and octal numbers (in strings) into decimal numbers (in strings)
 		List<Object> basesMatch=RegexHandler.match(PATT_ALLBASES, assembly, Pattern.MULTILINE|Pattern.CASE_INSENSITIVE, null);
 		for(int i=0;i<basesMatch.size();i++){
@@ -41,6 +42,7 @@ public class ConstantReplacements implements QConstants{
 				case "0B": assembly=assembly.replace(number, Integer.toString(Integer.parseInt(number.replaceAll("0[bB]", ""),2))); break;
 			}
 		}
+		
 		// replace * into the line
 		String [] assembly_Splitted=assembly.split("\\n");
 		assembly="";
@@ -48,11 +50,9 @@ public class ConstantReplacements implements QConstants{
 			if(RegexHandler.match(PATT_CURRLINE, assembly_Splitted[i], 0, null).size()>0) assembly_Splitted[i]=assembly_Splitted[i].replace("$",""+i);
 			assembly+="\n"+assembly_Splitted[i];
 		}
+		
 		// replace the constant registers into their address
-		for (String key : REGISTER_LAYOUT.keySet()){
-			//System.out.println(key+" > "+REGISTER_LAYOUT.get(key));
-			assembly=assembly.replaceAll("(?i)"+key, REGISTER_LAYOUT.get(key));
-		}
+		for (String key : REGISTER_LAYOUT.keySet()) assembly=assembly.replaceAll("(?i)"+key, REGISTER_LAYOUT.get(key));
 		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
