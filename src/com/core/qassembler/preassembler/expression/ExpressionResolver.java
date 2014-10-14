@@ -1,7 +1,10 @@
 package com.core.qassembler.preassembler.expression;
 
 import org.nfunk.jep.JEP;
+
 import java.util.List;
+import java.util.regex.Pattern;
+
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.Memory;
@@ -20,10 +23,10 @@ public class ExpressionResolver implements QConstants{
 	
 	public MainProgramFile resolve(MainProgramFile mainFile,Memory assemblerMemory){
 		String assembly=mainFile.getFile().getAssemblyCode();
-		List<Object> expressionMatcher=RegexHandler.match(PATT_EXPRESSION_V3, assembly, 0, null);
+		List<Object> expressionMatcher=RegexHandler.match(PATT_EXPRESSION_V4, assembly, Pattern.MULTILINE, null);
 		for(int i=0;i<expressionMatcher.size();i++){
-			String expression=(String)expressionMatcher.get(i);
-			expressionParser.parseExpression(expression.substring(1,expression.length()-1));
+			String expression=((String)expressionMatcher.get(i)).replaceAll("[\\],{}<>|%]","").trim();
+			expressionParser.parseExpression(expression);
 			expression=expression.replace("+","\\+").replace("*", "\\*").replace("/", "\\/").replace("(", "\\(").replace(")", "\\)");
 			assembly=assembly.replaceFirst(expression, Integer.toString((int)expressionParser.getValue()));
 		}
