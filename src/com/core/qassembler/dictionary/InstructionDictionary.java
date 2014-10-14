@@ -24,7 +24,9 @@ public class InstructionDictionary implements QConstants{
         put("CMW",		new Object[]{new int[]{2,8},new int[]{MEMORYCONTAINER},new int[]{CONSTANT}});
         put("CRW",		new Object[]{new int[]{2,9},new int[]{REGISTER},new int[]{CONSTANT}});
         put("POP",		new Object[]{new int[]{1,10},new int[]{REGISTER}});
+        put("POPA",		new Object[]{new int[]{0,84}});
         put("PUSH",		new Object[]{new int[]{1,11},new int[]{REGISTER}});
+        put("PUSHA",	new Object[]{new int[]{0,85}});
         put("CMTH",		new Object[]{new int[]{2,12},new int[]{QUBIT_THETA},new int[]{CONSTANT}});
         put("CMPH",		new Object[]{new int[]{2,13},new int[]{QUBIT_PHI},new int[]{CONSTANT}});
         put("CMP",		new Object[]{new int[]{2,14},new int[]{REGISTER},new int[]{REGISTER}});
