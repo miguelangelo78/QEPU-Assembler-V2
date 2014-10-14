@@ -23,7 +23,7 @@ public class ExpressionResolver implements QConstants{
 		List<Object> expressionMatcher=RegexHandler.match(PATT_EXPRESSION_V3, assembly, 0, null);
 		for(int i=0;i<expressionMatcher.size();i++){
 			String expression=(String)expressionMatcher.get(i);
-			expressionParser.parseExpression(expression);
+			expressionParser.parseExpression(expression.substring(1,expression.length()-1));
 			expression=expression.replace("+","\\+").replace("*", "\\*").replace("/", "\\/").replace("(", "\\(").replace(")", "\\)");
 			assembly=assembly.replaceFirst(expression, Integer.toString((int)expressionParser.getValue()));
 		}

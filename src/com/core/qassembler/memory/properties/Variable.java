@@ -59,7 +59,7 @@ public class Variable implements QConstants{
 				declare(variableName, extraBytes); // FOR FIXED SIZED VARIABLES
 			}
 			else // FOR STRINGS (NON FIXED VARIABLES)
-				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()+1);
+				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length());
 				else declare(variableName,1);
 			
 			//SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
@@ -67,7 +67,7 @@ public class Variable implements QConstants{
 			if(variableDeclaration.length>2)
 				if(!variableDeclaration[1].contains("\"")) // FIX FOR FIXED SIZED CONSTANTS:
 					for(int j=1;j<extraBytes;j++) variableReplacement+="\nmov ["+(getVarAddress(variableName)+j)+"],0";
-				else variableReplacement+=","+extraBytes;
+				else variableReplacement+=","+(extraBytes+1);
 			assembly=assembly.replace(((String)variableMatches.get(i)),variableReplacement);
 		}
 		//SUBSTITUTE ALL THE REST (VARS) INTO CONSTANTS (THEIR ADDRESSES)

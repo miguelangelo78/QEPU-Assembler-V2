@@ -16,12 +16,13 @@ public class ConstantReplacements implements QConstants{
 		String [] escapeSequence=new String[]{"\\a","\\b","\\f","\\n","\\r","\\t","\\v","\\","\\'","\\","\\?"};
 		int [] escapeInts=new int[]{0x07,0x08,0x0C,0x0A,0x0D,0x09,0x0B,0x5C,0x27,0x22,0x3F};
 		
+		src=src.replace("\\0","\0"); // REPLACE ESCAPED STRING TERMINATOR WITH AN UNESCAPED STRING TERMINADOR
 		for(int i=0;i<escapeSequence.length;i++){
 			StringBuilder strBldr=new StringBuilder(src);
-	        while(src.contains(escapeSequence[i])){
-	            int newline_index=src.indexOf(escapeSequence[i]);
-	            strBldr.setCharAt(newline_index, (char)escapeInts[i]);
-	            strBldr.deleteCharAt(newline_index+1);
+			while(src.contains(escapeSequence[i])){
+				int replacement_index=src.indexOf(escapeSequence[i]);
+	            strBldr.setCharAt(replacement_index, (char)escapeInts[i]);
+	            strBldr.deleteCharAt(replacement_index+1);
 	            src=strBldr.toString();
 	        }
 		}
@@ -40,7 +41,18 @@ public class ConstantReplacements implements QConstants{
 				case "0B": assembly=assembly.replace(number, Integer.toString(Integer.parseInt(number.replaceAll("0[bB]", ""),2))); break;
 			}
 		}
+		// replace * into the line
+		String [] assembly_Splitted=assembly.split("\\n");
+		assembly="";
+		for(int i=0;i<assembly_Splitted.length;i++){
+			if(RegexHandler.match(PATT_CURRLINE, assembly_Splitted[i], 0, null).size()>0) assembly_Splitted[i]=assembly_Splitted[i].replace("$",""+i);
+			assembly+="\n"+assembly_Splitted[i];
+		}
 		// replace the constant registers into their address
+		for (String key : REGISTER_LAYOUT.keySet()){
+			//System.out.println(key+" > "+REGISTER_LAYOUT.get(key));
+			assembly=assembly.replaceAll("(?i)"+key, REGISTER_LAYOUT.get(key));
+		}
 		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;

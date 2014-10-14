@@ -24,6 +24,7 @@ public class Preassembler implements QConstants{
 		expResolver=new ExpressionResolver();
 		intervals=new Interval();
 		stringIntervals=new StringInterval();
+		for(char c='A';c<='Z';c++) REGISTER_LAYOUT.put(c+"X", "{"+(c-'A')+"}"); // INICIALIZE REGISTER LAYOUT
 	}
 	
 	public Includer getIncluder() {

@@ -1,5 +1,7 @@
 package com.core.qassembler.constants;
 
+import java.util.HashMap;
+
 public interface QConstants {
 	// GLOBAL VARIABLES:
     // TYPES OF OPERANDS:
@@ -17,6 +19,7 @@ public interface QConstants {
 										  {QUBIT  ,QUBIT_SIZE},
 										  {MEMORYCONTAINER,MEMORY_SIZE},
 										  {CONSTANT,CONSTANT_SIZE}};
+	final HashMap<String, String> REGISTER_LAYOUT=new HashMap<String,String>();
 	final String FILESOURCE_FORMAT="qasm";
 	final String FILEBINARY_FORMAT="bin";
 	final String FILEMAIN_ENTRYPOINT="main";
@@ -37,13 +40,14 @@ public interface QConstants {
 	final String PATT_EXPRESSION_VAR="((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";
 	final String PATT_EXPRESSION="([0-9]+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?([0-9]+?$)";
 	final String PATT_EXPRESSION_V2="[^a-z|0-9](?:[ |	|\\(]+)?[0-9]+?(?:[ |	]+?)?(?:[\\(\\)+\\-\\*\\/]+?(?:[ |	]+?)?[0-9])+(?:[ |	|\\)]+)?";
-	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+?)?\\)";
+	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+)?\\)";
 	final String PATT_VARIABLEDECL="^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME="^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT="mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
 	final String PATT_CHARCONSTANT="'(.+?)'";
 	final String PATT_INTERVAL="([0-9]+)(?:[ |	]+?)?>>+(?:[ |	]+?)?([0-9]+)";
 	final String PATT_FUNCIONCONTAINER="(.+?)\\[(.+?)\\]";
+	final String PATT_CURRLINE="\\$";
 	final String PATT_HEX="0x[0-9a-f]+";
 	final String PATT_BIN="0b[0-1]+";
 	final String PATT_OCTAL="0o[0-7]+";
