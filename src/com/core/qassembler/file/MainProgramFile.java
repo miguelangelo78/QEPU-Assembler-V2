@@ -1,6 +1,7 @@
 package com.core.qassembler.file;
 
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,23 +9,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import com.core.qassembler.constants.QConstants;
+import com.utils.Misc;
 
 public class MainProgramFile implements QConstants{
 	private ProgramFileHandler mainProgram;
-	private ArrayList<Integer> machinecode;
-	private FileOutputStream mainFileHandler;
+	private ArrayList<Long> machinecode;
+	private DataOutputStream mainFileHandler;
 	
 	public MainProgramFile(ProgramFileHandler mainProgram){
 		this.mainProgram=mainProgram;
-		machinecode=new ArrayList<Integer>();
+		machinecode=new ArrayList<Long>();
 	}
 	
 	private void openFile(){
 		try {
-			mainFileHandler=new FileOutputStream(mainProgram.getFullBinPath());
+			mainFileHandler=new DataOutputStream(new FileOutputStream(mainProgram.getFullBinPath()));
 		} catch (FileNotFoundException e) { e.printStackTrace(); }
 	}
 	
@@ -53,17 +53,17 @@ public class MainProgramFile implements QConstants{
 		insertMachineCode(BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF); // INSERT EOF INTO FILE
 		try{
 			for(int i=0;i<machinecode.size();i++)
-				if(i%4==0) mainFileHandler.write(machinecode.get(i));
-	    		else mainFileHandler.write((ByteBuffer.allocate(4).putInt(machinecode.get(i)).array()));	
-    	}catch(Exception e){ e.printStackTrace(); }
+				if(i%4==0) mainFileHandler.write((int)(machinecode.get(i)+0)); // WRITE FUNCTION (LONG TO INT CAST)
+				else mainFileHandler.write(ByteBuffer.allocate(4).put(Misc.getByteSubFromTo(machinecode.get(i), 4, 0)).array()); // WRITE FUNCTION WITH PADDING OF 4 BYTES
+		}catch(Exception e){ e.printStackTrace(); }
 		closeFile();
 	}
 	
-	public void insertMachineCode(Integer[]operands){
-		machinecode.addAll(Arrays.asList(operands));
+	public void insertMachineCode(long[]operands){
+		machinecode.addAll(Misc.asList(operands));
 	}
 	
 	public void insertMachineCode(int func,int op1,int op2,int op3){
-		machinecode.addAll(Arrays.asList(func,op1,op2,op3));
+		machinecode.addAll(Misc.asList(new long[]{func,op1,op2,op3}));
 	}
 }

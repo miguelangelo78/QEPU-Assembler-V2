@@ -53,5 +53,5 @@ public interface QConstants {
 	final String PATT_BIN="0b[0-1]+";
 	final String PATT_OCTAL="0o[0-7]+";
 	final String PATT_ALLBASES="(?:0x[0-9a-f]+)|(?:0b[0-1]+)|(?:0o[0-7]+)";
-	
+	final String PATT_NUMBER="[-+]?(?:[ |	]+)?[0-9]*(?:[ |	]+)?\\.?(?:[ |	]+)?[0-9]+(?:[ |	]+)?";
 }

@@ -58,8 +58,8 @@ public class InstructionTranslator implements QConstants{
 		return validate;
 	}
 	
-	public Integer[] translate(String instruction,int programcounter) throws Exception{
-		int functionCode=0,op1=0,op2=0,op3=0;
+	public long[] translate(String instruction,int programcounter) throws Exception{
+		long functionCode=0,op1=0,op2=0,op3=0;
 		String [] ops=extractor.getOperandExtractor().extract(instruction); // FETCH OPERANDS
 		
 		// TURN THEM INTO OPERANDS
@@ -71,10 +71,10 @@ public class InstructionTranslator implements QConstants{
 		//RETURN THEIR VALUES (IF THE FUNCTION ISN'T -1)
 		if(functionCode==-1) functionCode=manualTranslator.translate(ops,instruction,programcounter); // FUNCTION NEEDS TO BE WRITTEN MANUALLY
 		
-		return new Integer[]{functionCode,op1,op2,op3};
+		return new long[]{functionCode,op1,op2,op3};
 	}
 	
-	public Integer[] getEOFoperands(){
-		return new Integer[]{(Integer)ins_dictionary.getInstructionCode("HLT"),0,0,0};
+	public long[] getEOFoperands(){
+		return new long[]{(long)ins_dictionary.getInstructionCode("HLT"),0,0,0};
 	}
 }

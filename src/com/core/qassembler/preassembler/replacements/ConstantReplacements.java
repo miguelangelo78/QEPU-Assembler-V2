@@ -37,9 +37,9 @@ public class ConstantReplacements implements QConstants{
 		for(int i=0;i<basesMatch.size();i++){
 			String number=((String)basesMatch.get(i));
 			switch(number.substring(0,2).toUpperCase()){ // BASE SWITCH
-				case "0X": assembly=assembly.replace(number, Integer.toString(Integer.parseInt(number.replaceAll("0[xX]", ""),16))); break;
-				case "0O": assembly=assembly.replace(number, Integer.toString(Integer.parseInt(number.replaceAll("0[oO]", ""),8)));break;
-				case "0B": assembly=assembly.replace(number, Integer.toString(Integer.parseInt(number.replaceAll("0[bB]", ""),2))); break;
+				case "0X": assembly=assembly.replace(number, Long.toString(Long.parseLong(number.replaceAll("0[xX]", ""),16))); break;
+				case "0O": assembly=assembly.replace(number, Long.toString(Long.parseLong(number.replaceAll("0[oO]", ""),8)));break;
+				case "0B": assembly=assembly.replace(number, Long.toString(Long.parseLong(number.replaceAll("0[bB]", ""),2))); break;
 			}
 		}
 		
