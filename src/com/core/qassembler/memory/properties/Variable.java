@@ -31,6 +31,16 @@ public class Variable implements QConstants{
 		return null;
 	}
 	
+	public int getVarSizeByIndex(int index){
+		for(String entry:variable_list.keySet()) if(index<=0) return variable_list.get(entry)[1];	else index--;
+		return -1;
+	}
+	
+	public int getVarAddressByIndex(int index){
+		for(String entry:variable_list.keySet()) if(index<=0) return variable_list.get(entry)[0];	else index--;
+		return -1;
+	}
+	
 	public int getVarAddress(String variableName){
 		return variable_list.get(variableName)[0];
 	}
@@ -45,6 +55,12 @@ public class Variable implements QConstants{
 		variable_lastaddress+=variable_bytelength;
 	}
 	
+	public void dump_memory(){
+		System.out.println(" *********** MEMORY DUMP: ");
+		for(int i=0;i<variable_list.size();i++)
+			System.out.println("Name: "+getVarNameByIndex(i)+". Address: "+getVarAddressByIndex(i)+". Size: "+getVarSizeByIndex(i)+".");
+	}
+	
 	public MainProgramFile handleVariables(MainProgramFile mainFile) throws Exception{
 		String assembly=mainFile.getFile().getAssemblyCode();
 		List<Object> variableMatches=RegexHandler.match(PATT_VARIABLEDECL, assembly, Pattern.MULTILINE, null);
@@ -53,13 +69,14 @@ public class Variable implements QConstants{
 			String[] variableDeclaration=((String)variableMatches.get(i)).split(",");
 			String variableName=((String)((String[])RegexHandler.match(PATT_VARIABLENAME, variableDeclaration[0], Pattern.MULTILINE, new int[]{1}).get(0))[0]).trim();
 			int extraBytes=0;
+			int extraBytesOffset=variableDeclaration[1].replaceAll("[^\\\\]", "").length(); // FIX FOR ESCAPED CHARACTERS INCREASING THE REAL SIZE OF THE VARIABLES
 			
 			if(variableDeclaration.length>2){
 				extraBytes=Integer.parseInt(variableDeclaration[2].trim());
 				declare(variableName, extraBytes); // FOR FIXED SIZED VARIABLES
 			}
 			else // FOR STRINGS (NON FIXED VARIABLES)
-				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length());
+				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()-extraBytesOffset);
 				else declare(variableName,1);
 			
 			//SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
@@ -70,11 +87,10 @@ public class Variable implements QConstants{
 				else variableReplacement+=","+(extraBytes+1);
 			assembly=assembly.replace(((String)variableMatches.get(i)),variableReplacement);
 		}
-		//SUBSTITUTE ALL THE REST (VARS) INTO CONSTANTS (THEIR ADDRESSES)
-		for(int i=0;i<variable_list.size();i++){
-			String varName=getVarNameByIndex(i);
-			assembly=assembly.replace("$"+varName, ""+variable_list.get(varName)[0]);
-		}
+		//SUBSTITUTE ALL THE REST (VARS REFS) INTO CONSTANTS (THEIR ADDRESSES)
+		for(int i=0;i<variable_list.size();i++)
+			assembly=assembly.replaceAll(PATT_VARIABLEREF_PART1+getVarNameByIndex(i)+PATT_VARIABLEREF_PART2, ""+getVarAddressByIndex(i));
+		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
 	}
