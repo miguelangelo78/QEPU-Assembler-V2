@@ -25,7 +25,7 @@ public class ExpressionResolver implements QConstants{
 		String assembly=mainFile.getFile().getAssemblyCode();
 		List<Object> expressionMatcher=RegexHandler.match(PATT_EXPRESSION_V4, assembly, Pattern.MULTILINE, null);
 		for(int i=0;i<expressionMatcher.size();i++){
-			String expression=((String)expressionMatcher.get(i)).replaceAll("[\\],{}<>|%]","").trim();
+			String expression=((String)expressionMatcher.get(i)).replaceAll("[\\],{}<>|%\\.]","").trim();
 			expressionParser.parseExpression(expression);
 			expression=expression.replace("+","\\+").replace("*", "\\*").replace("/", "\\/").replace("(", "\\(").replace(")", "\\)");
 			assembly=assembly.replaceFirst(expression, Long.toString((long)expressionParser.getValue()));

@@ -64,6 +64,7 @@ public class Preassembler implements QConstants{
 		assemblerMemory.handleOffsets(mainFile);
 		mainFile=assemblerMemory.handleVariables(mainFile);
 		mainFile=stringIntervals.replaceAll(mainFile);
+		mainFile=handleExpressions(mainFile);
 		mainFile=intervals.handleIntervals(mainFile);
 		mainFile=handleLabels(mainFile);
 		mainFile=handleConstantReplacements(mainFile);
@@ -76,7 +77,7 @@ public class Preassembler implements QConstants{
 		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleOffsets(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);
-		mainFile=handleExpressions(mainFile);
+		//mainFile=handleExpressions(mainFile);
 		return mainFile;
 	}
 }
