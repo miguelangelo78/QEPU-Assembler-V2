@@ -79,6 +79,36 @@ public class InstructionManualTranslator implements QConstants{
 				if(types[1]==CONSTANT && types[2]==REGISTER)
 					functionCode=ins_dictionary.getInstructionCode("ADD_RK");
 				break;
+			case "MOD":
+				if(types[1]==REGISTER && types[2]==REGISTER)
+					functionCode=ins_dictionary.getInstructionCode("MOD_");
+				else
+				if(types[1]==REGISTER && types[2]==CONSTANT)
+					functionCode=ins_dictionary.getInstructionCode("MOD_RK");
+				else
+				if(types[1]==CONSTANT && types[2]==REGISTER)
+					functionCode=ins_dictionary.getInstructionCode("MOD_KR");
+				break;
+			case "ROL":
+				if(types[1]==REGISTER && types[2]==REGISTER)
+					functionCode=ins_dictionary.getInstructionCode("ROL_");
+				else
+				if(types[1]==REGISTER && types[2]==CONSTANT)
+					functionCode=ins_dictionary.getInstructionCode("ROL_RK");
+				else
+				if(types[1]==CONSTANT && types[2]==REGISTER)
+					functionCode=ins_dictionary.getInstructionCode("ROL_KR");
+				break;
+			case "ROR":
+				if(types[1]==REGISTER && types[2]==REGISTER)
+					functionCode=ins_dictionary.getInstructionCode("ROR_");
+				else
+				if(types[1]==REGISTER && types[2]==CONSTANT)
+					functionCode=ins_dictionary.getInstructionCode("ROR_RK");
+				else
+				if(types[1]==CONSTANT && types[2]==REGISTER)
+					functionCode=ins_dictionary.getInstructionCode("ROR_KR");
+				break;
 			case "SUB": 
 				if(types[1]==REGISTER && types[2]==REGISTER)
 					functionCode=ins_dictionary.getInstructionCode("SUB_");
