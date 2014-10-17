@@ -52,7 +52,8 @@ public class ConstantReplacements implements QConstants{
 		}
 		
 		// replace the constant registers into their address
-		for (String key : REGISTER_LAYOUT.keySet()) assembly=assembly.replaceAll("(?i)"+key, REGISTER_LAYOUT.get(key));
+		for (String key : REGISTER_CONTAINER.keySet()) assembly=assembly.replaceAll("(?i)"+key, REGISTER_CONTAINER.get(key));
+		for (String key : REGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)"+key, REGISTER_NOCONTAINER.get(key));
 		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;

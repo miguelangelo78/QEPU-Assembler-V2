@@ -19,7 +19,8 @@ public interface QConstants {
 										  {QUBIT  ,QUBIT_SIZE},
 										  {MEMORYCONTAINER,MEMORY_SIZE},
 										  {CONSTANT,CONSTANT_SIZE}};
-	final HashMap<String, String> REGISTER_LAYOUT=new HashMap<String,String>();
+	final HashMap<String, String> REGISTER_CONTAINER=new HashMap<String,String>();
+	final HashMap<String, String> REGISTER_NOCONTAINER=new HashMap<String,String>(); 
 	final String FILESOURCE_FORMAT="qasm";
 	final String FILEBINARY_FORMAT="bin";
 	final String FILEMAIN_ENTRYPOINT="main";
