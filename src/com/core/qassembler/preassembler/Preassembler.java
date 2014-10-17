@@ -78,7 +78,7 @@ public class Preassembler implements QConstants{
 		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleOffsets(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);
-		//mainFile=handleExpressions(mainFile);
+		mainFile=handleExpressions(mainFile);
 		return mainFile;
 	}
 }
