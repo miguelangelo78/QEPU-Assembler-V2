@@ -50,11 +50,18 @@ public class MainProgramFile implements QConstants{
 	
 	public void createBinaryFile(){
 		openFile();
-		insertMachineCode(BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF); // INSERT EOF INTO FILE
+		insertMachineCode(BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF, BINARY_FILE_EOF); // INSERT EOF INTO FILE
+		
 		try{
-			for(int i=0;i<machinecode.size();i++)
-				if(i%4==0) mainFileHandler.write((int)(machinecode.get(i)+0)); // WRITE FUNCTION (LONG TO INT CAST)
+			int meta_counter=1;
+			for(int i=0;i<machinecode.size();i++){
+				if(i%7==0 || meta_counter%2==0){
+					mainFileHandler.write((int)(machinecode.get(i)+0)); // WRITE FUNCTION AND METADATA (LONG TO INT CAST)
+					meta_counter=0;
+				}
 				else mainFileHandler.write(ByteBuffer.allocate(4).put(Misc.getByteSubFromTo(machinecode.get(i), 4, 0)).array()); // WRITE FUNCTION WITH PADDING OF 4 BYTES
+				meta_counter++;
+			}
 		}catch(Exception e){ e.printStackTrace(); }
 		closeFile();
 	}
@@ -63,7 +70,7 @@ public class MainProgramFile implements QConstants{
 		machinecode.addAll(Misc.asList(operands));
 	}
 	
-	public void insertMachineCode(int func,int op1,int op2,int op3){
-		machinecode.addAll(Misc.asList(new long[]{func,op1,op2,op3}));
+	public void insertMachineCode(int func,int op1,int meta1,int op2,int meta2,int op3,int meta3){
+		machinecode.addAll(Misc.asList(new long[]{func,op1,meta1,op2,meta2,op3,meta3}));
 	}
 }

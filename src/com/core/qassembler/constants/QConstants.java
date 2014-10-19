@@ -9,18 +9,36 @@ public interface QConstants {
 	final int OP1=1;
 	final int OP2=2;
 	final int OP3=3;
-	final int REGISTER=0,REGISTER_SIZE=8; 		  // {K}
-	final int REGISTER_POINTER=1; // {K}
-	final int QUBIT=2,QUBIT_THETA=3,QUBIT_PHI=4,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
-	final int MEMORYCONTAINER=5,MEMORY_SIZE=8;    // [K]
-	final int CONSTANT=6,CONSTANT_SIZE=8; 		  // K
-	final int[][] TYPES_SIZES=new int[][]{{REGISTER,REGISTER_SIZE}, // TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSMEBLED
-										  {REGISTER_POINTER,REGISTER_SIZE},
+	final int QREGISTER=0,QREGISTER_SIZE=32; 		  // {K}
+	final int QREGISTER_POINTER=1; // {K}
+	final int CREGISTER=2,CREGISTER_SIZE=32;
+	final int CREGISTER_POINTER=3;
+	final int QUBIT=4,QUBIT_THETA=5,QUBIT_PHI=6,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
+	final int MEMORYCONTAINER=7,MEMORY_SIZE=32;    // [K]
+	final int CONSTANT=8,CONSTANT_SIZE=32; 		  // K
+	final int[][] TYPES_SIZES=new int[][]{{QREGISTER,QREGISTER_SIZE}, // TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSMEBLED
+										  {QREGISTER_POINTER,QREGISTER_SIZE},
+										  {CREGISTER,CREGISTER_SIZE},
+										  {CREGISTER_POINTER,CREGISTER_SIZE},
 										  {QUBIT  ,QUBIT_SIZE},
 										  {MEMORYCONTAINER,MEMORY_SIZE},
 										  {CONSTANT,CONSTANT_SIZE}};
-	final HashMap<String, String> REGISTER_CONTAINER=new HashMap<String,String>();
-	final HashMap<String, String> REGISTER_NOCONTAINER=new HashMap<String,String>(); 
+	final int META_NULL=0;
+	final int META_CREGISTER=1;
+	final int META_CREGISTER_POINTER=2;
+	final int META_QREGISTER=3;
+	final int META_QREGISTER_POINTER=4;
+	final int META_MEM_CONTAINER=5;
+	final int META_MEM_ADDRESS=6;
+	final int META_CONSTANT=7;
+	final int META_QUBIT=8;
+	final int META_QUBIT_THETA=9;
+	final int META_QUBIT_PHI=10;
+	
+	final HashMap<String, String> CREGISTER_CONTAINER=new HashMap<String,String>();
+	final HashMap<String, String> CREGISTER_NOCONTAINER=new HashMap<String,String>();
+	final HashMap<String, String> QREGISTER_CONTAINER=new HashMap<String,String>();
+	final HashMap<String, String> QREGISTER_NOCONTAINER=new HashMap<String,String>();
 	final String FILESOURCE_FORMAT="qasm";
 	final String FILEBINARY_FORMAT="bin";
 	final String FILEMAIN_ENTRYPOINT="main";

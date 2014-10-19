@@ -59,8 +59,13 @@ public class InstructionTranslator implements QConstants{
 	}
 	
 	public long[] translate(String instruction,int programcounter) throws Exception{
-		long functionCode=0,op1=0,op2=0,op3=0;
+		long functionCode=0,op1=0,op2=0,op3=0,meta1=0,meta2=0,meta3=0;
 		String [] ops=extractor.getOperandExtractor().extract(instruction); // FETCH OPERANDS
+		
+		//FETCH OPERAND METADATA (CURRENTLY IT'S JUST THEIR TYPE)
+		try{ meta1=extractor.getTypeExtractor().getOperandMetadata(ops[1]); }catch(Exception e){}
+		try{ meta2=extractor.getTypeExtractor().getOperandMetadata(ops[2]); }catch(Exception e){}
+		try{ meta3=extractor.getTypeExtractor().getOperandMetadata(ops[3]); }catch(Exception e){}
 		
 		// TURN THEM INTO OPERANDS
 		functionCode=ins_dictionary.getInstructionCode(ops[0]);
@@ -71,10 +76,10 @@ public class InstructionTranslator implements QConstants{
 		//RETURN THEIR VALUES (IF THE FUNCTION ISN'T -1)
 		if(functionCode==-1) functionCode=manualTranslator.translate(ops,instruction,programcounter); // FUNCTION NEEDS TO BE WRITTEN MANUALLY
 		
-		return new long[]{functionCode,op1,op2,op3};
+		return new long[]{functionCode,op1,meta1,op2,meta2,op3,meta3};
 	}
 	
 	public long[] getEOFoperands(){
-		return new long[]{(long)ins_dictionary.getInstructionCode("HLT"),0,0,0};
+		return new long[]{(long)ins_dictionary.getInstructionCode("HALT"),0,0,0,0,0,0};
 	}
 }

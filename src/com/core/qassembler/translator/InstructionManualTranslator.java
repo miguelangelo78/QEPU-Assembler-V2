@@ -9,7 +9,6 @@ public class InstructionManualTranslator implements QConstants{
 	private Extractor extractor;
 	private InstructionDictionary ins_dictionary;
 	
-	
 	public InstructionManualTranslator(){
 		extractor=new Extractor();
 		ins_dictionary=new InstructionDictionary();
@@ -17,7 +16,7 @@ public class InstructionManualTranslator implements QConstants{
 	
 	public int translate(String [] ops,String instruction,int programcounter) throws Exception{
 		int functionCode=-1;
-		Integer [] types=extractor.getTypeExtractor().extractAll(ops);
+		/*Integer [] types=extractor.getTypeExtractor().extractAll(ops);
 		switch(ops[0]){
 			case "MOV": 
 				if(types[0]==MEMORYCONTAINER && types[1]==MEMORYCONTAINER)
@@ -210,7 +209,8 @@ public class InstructionManualTranslator implements QConstants{
 					functionCode=ins_dictionary.getInstructionCode("SHR_KR");
 				break;
 			default:
-		}
-		return functionCode;
+		}*/
+		return 0;
+		//return functionCode;
 	}
 }
