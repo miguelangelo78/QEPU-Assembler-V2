@@ -43,7 +43,7 @@ public class ConstantReplacements implements QConstants{
 			}
 		}
 		
-		// replace * into the line
+		// replace $ into the line
 		String [] assembly_Splitted=assembly.split("\\n");
 		assembly="";
 		for(int i=0;i<assembly_Splitted.length;i++){

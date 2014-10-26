@@ -54,13 +54,13 @@ public interface QConstants {
 	final String PATT_MAINLABEL="^(?:[ |	]+?)?("+FILEMAIN_ENTRYPOINT+")(?:[ |	]+?)?\\:";
 	final String PATT_LABEL="^(?:[ |	]+?)?(.+?)(?:[ |	]+?)?\\:";
 	final String PATT_LABELREF="@(.+?)(?:[ |	,\\[\\]]|$|[^a-zA-Z0-9_])";
-	final String PATT_COMMENT="(?:\\;.+?$)|\\/\\*(?:(?:.|\n)+?)?\\*\\/|^(?:[ |	]+?)?$";
+	final String PATT_COMMENT="(?:\\;.+?$)|\\/\\*(?:(?:.|\\n)+?)?\\*\\/";
 	final String PATT_EMPTYLINE="(?m)^[ \\t]*\r?\n";
 	final String PATT_EXPRESSION_VAR="((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";
 	final String PATT_EXPRESSION="([0-9]+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?([0-9]+?$)";
 	final String PATT_EXPRESSION_V2="[^a-z|0-9](?:[ |	|\\(]+)?[0-9]+?(?:[ |	]+?)?(?:[\\(\\)+\\-\\*\\/]+?(?:[ |	]+?)?[0-9])+(?:[ |	|\\)]+)?";
 	final String PATT_EXPRESSION_V3="\\(+?(?:(?:[0-9])?.+)?\\)";
-	final String PATT_EXPRESSION_V4="\\(+?(?:(?:[0-9])?.+?)(?:,|\\.|$)";
+	final String PATT_EXPRESSION_V4="\\(+?(?:(?:[0-9])?.+?)(?:,|\\.| |	|$)";
 	final String PATT_VARIABLEDECL="^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME="^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_VARIABLEREF_PART1="\\$(?:[ |	]+)?(?:\\b";
@@ -75,4 +75,5 @@ public interface QConstants {
 	final String PATT_OCTAL="0o[0-7]+";
 	final String PATT_ALLBASES="(?:0x[0-9a-f]+)|(?:0b[0-1]+)|(?:0o[0-7]+)";
 	final String PATT_NUMBER="[-+]?(?:[ |	]+)?[0-9]*(?:[ |	]+)?\\.?(?:[ |	]+)?[0-9]+(?:[ |	]+)?";
+	final String PATT_TIMES="\\btimes(?:[ |	]+)?(-?[0-9]+?)\\b(?:[ |	]+)?(.+?)\\bendtimes\\b";
 }
