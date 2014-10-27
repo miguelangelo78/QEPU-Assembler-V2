@@ -16,7 +16,7 @@ public class Interval implements QConstants{
 	public MainProgramFile handleIntervals(MainProgramFile mainFile){
 		String assembly=mainFile.getFile().getAssemblyCode();
 		//SUBSTITUE '&' INTO NEW LINES
-		assembly=assembly.replaceAll("&","\n");
+		assembly=assembly.replaceAll(PATT_INSTR_NEWLINE,"\n");
 		//SUBSTITUTE THE INTERVAL BY MULTIPLE MOVS DETERMINED BY THE INTERVAL
 		Pattern intervals_patt=Pattern.compile(PATT_INTERVAL,Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
     	for(String line:assembly.split("\\n")){

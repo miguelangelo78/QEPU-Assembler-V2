@@ -76,4 +76,7 @@ public interface QConstants {
 	final String PATT_ALLBASES="(?:0x[0-9a-f]+)|(?:0b[0-1]+)|(?:0o[0-7]+)";
 	final String PATT_NUMBER="[-+]?(?:[ |	]+)?[0-9]*(?:[ |	]+)?\\.?(?:[ |	]+)?[0-9]+(?:[ |	]+)?";
 	final String PATT_TIMES="\\btimes(?:[ |	]+)?(-?[0-9]+?)\\b(?:[ |	]+)?(.+?)\\bendtimes\\b";
+	final String PATT_MACRO_DEFINE_DECL="(?i)#(?:[ |	]+)?define(?:[ |	]+)(\\b.+?\\b)(?:[ |	]+)(.+?)(?:[&]|$)";
+	final String PATT_TEMPLATE_OUTSIDEQUOTES="(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+	final String PATT_INSTR_NEWLINE="&"+PATT_TEMPLATE_OUTSIDEQUOTES;
 }

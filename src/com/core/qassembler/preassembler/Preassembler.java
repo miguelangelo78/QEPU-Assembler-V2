@@ -68,7 +68,9 @@ public class Preassembler implements QConstants{
 		mainFile=assemblerMemory.handleVariables(mainFile);
 		mainFile=stringIntervals.replaceAll(mainFile);
 		mainFile=handleExpressions(mainFile);
+		mainFile=assemblerMemory.handleDefines(mainFile);
 		mainFile=intervals.handleIntervals(mainFile);
+		mainFile=stringIntervals.replaceAll(mainFile); // DO STRINGS AGAIN BECAUSE THE DEFINES MAY CONTAIN STRINGS
 		mainFile=handleLabels(mainFile);
 		mainFile=handleConstantReplacements(mainFile);
 		return mainFile;

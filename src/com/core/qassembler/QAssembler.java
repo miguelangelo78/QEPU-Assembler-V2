@@ -31,6 +31,7 @@ public class QAssembler {
 	
 	private String assemble(String assembly_code){
 		String result="";
+		System.out.println("OUTPUT:\n"+assembly_code);
 		if(assembly_code.trim().length()>0){ // THE FILE CANNOT BE EMPTY
 			try{
 				for(programCounter=0;programCounter<programCounterMax;programCounter++){

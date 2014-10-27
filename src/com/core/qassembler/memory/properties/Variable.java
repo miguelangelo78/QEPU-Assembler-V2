@@ -65,7 +65,7 @@ public class Variable implements QConstants{
 		String assembly=mainFile.getFile().getAssemblyCode();
 		List<Object> variableMatches=RegexHandler.match(PATT_VARIABLEDECL, assembly, Pattern.MULTILINE, null);
 		for(int i=0;i<variableMatches.size();i++){
-			//DECLARE VARIABLES
+			// DECLARE VARIABLES
 			String[] variableDeclaration=((String)variableMatches.get(i)).split(",");
 			String variableName=((String)((String[])RegexHandler.match(PATT_VARIABLENAME, variableDeclaration[0], Pattern.MULTILINE, new int[]{1}).get(0))[0]).trim();
 			int extraBytes=0;
@@ -79,7 +79,7 @@ public class Variable implements QConstants{
 				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()-extraBytesOffset);
 				else declare(variableName,1);
 			
-			//SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
+			// SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
 			String variableReplacement="mov ["+getVarAddress(variableName)+"],"+variableDeclaration[1].trim();
 			if(variableDeclaration.length>2)
 				if(!variableDeclaration[1].contains("\"")) // FIX FOR FIXED SIZED CONSTANTS:
@@ -87,7 +87,7 @@ public class Variable implements QConstants{
 				else variableReplacement+=","+(extraBytes+1);
 			assembly=assembly.replace(((String)variableMatches.get(i)),variableReplacement);
 		}
-		//SUBSTITUTE ALL THE REST (VARS REFS) INTO CONSTANTS (THEIR ADDRESSES)
+		// SUBSTITUTE ALL THE REST (VARS REFS) INTO CONSTANTS (THEIR ADDRESSES)
 		for(int i=0;i<variable_list.size();i++)
 			assembly=assembly.replaceAll(PATT_VARIABLEREF_PART1+getVarNameByIndex(i)+PATT_VARIABLEREF_PART2, ""+getVarAddressByIndex(i));
 		
