@@ -3,8 +3,6 @@ package com.core.qassembler.memory.properties;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.utils.regex.RegexHandler;
@@ -46,12 +44,8 @@ public class Label implements QConstants{
 			}
 		}
 		
-		List<Object> labelRefList=RegexHandler.match(PATT_LABELREF, assembly, Pattern.MULTILINE, new int[]{1});
-		for(int i=0;i<labelRefList.size();i++){
-			String labelName=(String)((String[])labelRefList.get(i))[0];
-			if(!isLabelDeclared(labelName)) throw new Exception("The label '"+labelName+"' was not previously declared.");
-			else assembly=assembly.replaceFirst("@"+labelName, ""+getAddress(labelName));
-		}
+		// REPLACE THE LABELS' REFERENCE WITH THEIR RESPECTIVE ADDRESS:
+		for(String labelName:label_list.keySet()) assembly=assembly.replaceAll("\\b"+labelName+"\\b",""+getAddress(labelName));
 		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;

@@ -37,6 +37,10 @@ public class Memory implements QConstants{
 	public Variable getVariableHandler() {
 		return variable_handler;
 	}
+	
+	public Defines getDefinesHandler(){
+		return defines_handler;
+	}
 
 	public Offset getOffsetHandler() {
 		return offset_handler;

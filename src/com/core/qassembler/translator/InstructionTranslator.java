@@ -11,16 +11,15 @@ import com.utils.Misc;
 public class InstructionTranslator implements QConstants{
 	
 	private InstructionDictionary ins_dictionary;
-	private InstructionManualTranslator manualTranslator;
 	private Extractor extractor;
 	
 	public InstructionTranslator(){
 		ins_dictionary=new InstructionDictionary();
-		manualTranslator=new InstructionManualTranslator();
 		extractor=new Extractor();
 	}
 	
 	private boolean typesValid(String [] ops){
+		// CHECK IF THE SIZES ARE COMPATIBLE:
 		try{
 			int typeSize=TYPES_SIZES[extractor.getTypeExtractor().extract(ops[1])][1];
 			for(int i=0;i<ops.length-1;i++){
@@ -29,12 +28,13 @@ public class InstructionTranslator implements QConstants{
 				else typeSize=opSize;
 			}
 		}catch(Exception e){}
-		//CHECK IF THE TYPES ARE COMPATIBLE:
+		// CHECK IF THE TYPES ARE COMPATIBLE:
 		try{
 			Object[] instructionObject=ins_dictionary.getInstruction(ops[0]);
 			for(int i=1;i<instructionObject.length;i++) //SEE IF THE OPERAND TYPE 'I' IS INSIDE ARRAY VALIDTYPES
 				if(!Misc.arrayContains((int[])instructionObject[i],extractor.getTypeExtractor().extract(ops[i]))) return false;
 		}catch(Exception e){ }
+		// EVERYTHING IS VALID AT THIS POINT
 		return true;
 	}
 	
@@ -72,9 +72,6 @@ public class InstructionTranslator implements QConstants{
 		try{ op1=Misc.extractNumber(ops[1]); }catch(Exception e){}
 		try{ op2=Misc.extractNumber(ops[2]); }catch(Exception e){}
 		try{ op3=Misc.extractNumber(ops[3]); }catch(Exception e){}
-		
-		//RETURN THEIR VALUES (IF THE FUNCTION ISN'T -1)
-		if(functionCode==-1) functionCode=manualTranslator.translate(ops,instruction,programcounter); // FUNCTION NEEDS TO BE WRITTEN MANUALLY
 		
 		return new long[]{functionCode,op1,meta1,op2,meta2,op3,meta3};
 	}

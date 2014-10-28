@@ -1,7 +1,6 @@
 package com.core.qassembler;
 
 import java.util.List;
-
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.file.ProgramFileHandler;
 import com.core.qassembler.preassembler.Preassembler;

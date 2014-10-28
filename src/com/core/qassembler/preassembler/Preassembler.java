@@ -2,7 +2,6 @@ package com.core.qassembler.preassembler;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.Memory;
@@ -24,10 +23,13 @@ public class Preassembler implements QConstants{
 		expResolver=new ExpressionResolver();
 		intervals=new Interval();
 		stringIntervals=new StringInterval();
-		for(char c='A';c<='Z';c++) CREGISTER_CONTAINER.put(c+"X", "{"+(c-'A')+"}"); // INICIALIZE REGISTER CONTAINERS
-		for(char c='A';c<='Z';c++) CREGISTER_NOCONTAINER.put(c+"R", ""+(c-'A')); // INICIALIZE REGISTER CONTAINERS
-		for(char c='A';c<='Z';c++) QREGISTER_CONTAINER.put("Q"+c+"X", "%"+(c-'A')+"%"); // INICIALIZE REGISTER CONTAINERS
-		for(char c='A';c<='Z';c++) QREGISTER_NOCONTAINER.put("Q"+c+"R", ""+(c-'A')); // INICIALIZE REGISTER CONTAINERS
+		for(char c='A';c<='A'+CREGISTER_COUNT;c++) CREGISTER_CONTAINER.put(c+"X", "{"+(c-'A')+"}"); // INICIALIZE REGISTER CONTAINERS
+		for(char c='A';c<='A'+CREGISTER_COUNT;c++) CREGISTER_NOCONTAINER.put(c+"R", ""+(c-'A')); // INICIALIZE REGISTER CONTAINERS
+		for(char c='A';c<='A'+CREGISTER_COUNT;c++) QREGISTER_CONTAINER.put("Q"+c+"X", "%"+(c-'A')+"%"); // INICIALIZE REGISTER CONTAINERS
+		for(char c='A';c<='A'+CREGISTER_COUNT;c++) QREGISTER_NOCONTAINER.put("Q"+c+"R", ""+(c-'A')); // INICIALIZE REGISTER CONTAINERS
+		for(int i=0;i<QREGISTER_COUNT*QREGISTER_SIZE;i++) QBIT_ALL.  put("Q"+i,  "<"+i+">");
+		for(int i=0;i<QREGISTER_COUNT*QREGISTER_SIZE;i++) QBIT_THETA.put("QT"+i, "|"+i+"|");
+		for(int i=0;i<QREGISTER_COUNT*QREGISTER_SIZE;i++) QBIT_PHI.  put("QP"+i, "!"+i+"!");
 	}
 	
 	public Includer getIncluder() {
@@ -64,19 +66,26 @@ public class Preassembler implements QConstants{
 	}
 	
 	private MainProgramFile handleOffsets(MainProgramFile mainFile) throws Exception{
-		assemblerMemory.handleOffsets(mainFile);
-		mainFile=assemblerMemory.handleVariables(mainFile);
-		mainFile=stringIntervals.replaceAll(mainFile);
-		mainFile=handleExpressions(mainFile);
-		mainFile=assemblerMemory.handleDefines(mainFile);
-		mainFile=intervals.handleIntervals(mainFile);
-		mainFile=stringIntervals.replaceAll(mainFile); // DO STRINGS AGAIN BECAUSE THE DEFINES MAY CONTAIN STRINGS
-		mainFile=handleLabels(mainFile);
-		mainFile=handleConstantReplacements(mainFile);
+		assemblerMemory.handleOffsets(mainFile); // STRINGS OCCUPY NOT JUST ONE LINE, NOR DO VARIABLE DECLARATIONS OR INTERVALS (X..Y)
+		mainFile=stringIntervals.replaceAll(mainFile); // REPLACE STRINGS INTO THEIR CHARACTER ARRAYS
+		mainFile=handleExpressions(mainFile); // HANDLE EXPRESSIONS BEFORE MACROS BECAUSE THERE MAY BE EXPRESSIONS THERE
+		mainFile=assemblerMemory.handleDefines(mainFile); // HANDLE MACROS AND CONSTANT DEFINITIONS
+		mainFile=assemblerMemory.handleVariables(mainFile); // DECLARE VARIABLES AFTER OVERWRITING CONSTANTS INTO THEIR PLACES
+		mainFile=handleCommentsAndEmptyLines(mainFile); // THE DEFINITION OF CONSTANTS CREATES EMPTY LINES. CLEAN THEM
+		mainFile=intervals.handleIntervals(mainFile); // HANDLE INTERVALS (X..Y)
+		mainFile=stringIntervals.replaceAll(mainFile); // DO STRINGS AGAIN BECAUSE THE MACROS MAY CONTAIN STRINGS INSIDE THEM
+		mainFile=handleLabels(mainFile); // FINALLY AFTER THE CODE BEING CLEAN, DECLARE THE LABELS 
+		mainFile=handleConstantReplacements(mainFile); // SUBSITUTE CONSTANTS INTO THEIR RESPECTIVE VALUE, SUCH AS NUMBER BASES, '$' CONSTANT AND REGISTERS'/QUBITS' ALIASES
 		return mainFile;
 	}
 	
+	private void preDeclareConstants(){
+		// DECLARE ASSEMBLER CONSTANTS SUCH AS PI,E, AND SOME OTHER IMPORTANT OR RELEVANT MACROS
+		for(int i=0;i<preConstants.length;i++) assemblerMemory.getDefinesHandler().declare(preConstants[i][0], preConstants[i][1]);
+	}
+	
 	public MainProgramFile preAssemble(MainProgramFile mainFile) throws Exception{
+		preDeclareConstants();
 		mainFile=handleCommentsAndEmptyLines(mainFile);
 		mainFile=handleIncluding(mainFile);
 		mainFile=handleCommentsAndEmptyLines(mainFile);

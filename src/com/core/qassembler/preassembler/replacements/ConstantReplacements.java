@@ -2,7 +2,6 @@ package com.core.qassembler.preassembler.replacements;
 
 import java.util.List;
 import java.util.regex.Pattern;
-
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.Memory;
@@ -52,10 +51,13 @@ public class ConstantReplacements implements QConstants{
 		}
 		
 		// replace the constant registers into their address
-		for (String key : CREGISTER_CONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,   CREGISTER_CONTAINER.get(key));
-		for (String key : CREGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES, CREGISTER_NOCONTAINER.get(key));
-		for (String key : QREGISTER_CONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,   QREGISTER_CONTAINER.get(key));
-		for (String key : QREGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES, QREGISTER_NOCONTAINER.get(key));
+		for (String key : CREGISTER_CONTAINER.keySet())   assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  CREGISTER_CONTAINER.get(key));
+		for (String key : CREGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  CREGISTER_NOCONTAINER.get(key));
+		for (String key : QREGISTER_CONTAINER.keySet())   assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QREGISTER_CONTAINER.get(key));
+		for (String key : QREGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QREGISTER_NOCONTAINER.get(key));
+		for (String key : QBIT_ALL.keySet()) 			  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QBIT_ALL.get(key));
+		for (String key : QBIT_THETA.keySet()) 			  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QBIT_THETA.get(key));
+		for (String key : QBIT_PHI.keySet()) 			  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QBIT_PHI.get(key));
 		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;

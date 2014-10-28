@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-
 import com.core.qassembler.constants.QConstants;
 import com.core.qassembler.file.MainProgramFile;
 import com.utils.regex.RegexHandler;
@@ -76,9 +75,9 @@ public class Variable implements QConstants{
 				declare(variableName, extraBytes); // FOR FIXED SIZED VARIABLES
 			}
 			else // FOR STRINGS (NON FIXED VARIABLES)
-				if(variableDeclaration[1].contains("\"")) declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()-extraBytesOffset);
+				if(variableDeclaration[1].contains("\""))
+					declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()-extraBytesOffset);
 				else declare(variableName,1);
-			
 			// SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
 			String variableReplacement="mov ["+getVarAddress(variableName)+"],"+variableDeclaration[1].trim();
 			if(variableDeclaration.length>2)
@@ -89,8 +88,8 @@ public class Variable implements QConstants{
 		}
 		// SUBSTITUTE ALL THE REST (VARS REFS) INTO CONSTANTS (THEIR ADDRESSES)
 		for(int i=0;i<variable_list.size();i++)
-			assembly=assembly.replaceAll(PATT_VARIABLEREF_PART1+getVarNameByIndex(i)+PATT_VARIABLEREF_PART2, ""+getVarAddressByIndex(i));
-		
+			assembly=assembly.replaceAll("\\b"+getVarNameByIndex(i)+"\\b", ""+getVarAddressByIndex(i));
+
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
 	}
