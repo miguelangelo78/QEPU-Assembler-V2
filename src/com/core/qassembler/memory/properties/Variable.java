@@ -67,6 +67,9 @@ public class Variable implements Global_Constants{
 			// DECLARE VARIABLES
 			String[] variableDeclaration=((String)variableMatches.get(i)).split(",");
 			String variableName=((String)((String[])RegexHandler.match(PATT_VARIABLENAME, variableDeclaration[0], Pattern.MULTILINE, new int[]{1}).get(0))[0]).trim();
+			variableDeclaration[1]=variableDeclaration[1].trim();
+			String variable_content=variableDeclaration[1];
+			
 			int extraBytes=0;
 			int extraBytesOffset=variableDeclaration[1].replaceAll("[^\\\\]", "").length(); // FIX FOR ESCAPED CHARACTERS INCREASING THE REAL SIZE OF THE VARIABLES
 			
@@ -75,20 +78,22 @@ public class Variable implements Global_Constants{
 				declare(variableName, extraBytes); // FOR FIXED SIZED VARIABLES
 			}
 			else // FOR STRINGS (NON FIXED VARIABLES)
-				if(variableDeclaration[1].contains("\""))
-					declare(variableName, (variableDeclaration[1].replace("\"","").trim()).length()-extraBytesOffset);
+				if(variable_content.contains("\""))
+					declare(variableName, variable_content.length()-extraBytesOffset-2); // -2 BECAUSE OF THE "" THAT ARE LEFTOVER
 				else declare(variableName,1);
+			
 			// SUBSTITUTE DECLARATIONS INTO MOV'S AND INTO CONSTANTS:
-			String variableReplacement="mov ["+getVarAddress(variableName)+"],"+variableDeclaration[1].trim();
+			String variableReplacement="mov ["+getVarAddress(variableName)+"],"+variable_content;
 			if(variableDeclaration.length>2)
-				if(!variableDeclaration[1].contains("\"")) // FIX FOR FIXED SIZED CONSTANTS:
+				if(!variable_content.contains("\"")) // FIX FOR FIXED SIZED CONSTANTS:
 					for(int j=1;j<extraBytes;j++) variableReplacement+="\nmov ["+(getVarAddress(variableName)+j)+"],0";
 				else variableReplacement+=","+(extraBytes+1);
 			assembly=assembly.replace(((String)variableMatches.get(i)),variableReplacement);
 		}
+		
 		// SUBSTITUTE ALL THE REST (VARS REFS) INTO CONSTANTS (THEIR ADDRESSES)
 		for(int i=0;i<variable_list.size();i++)
-			assembly=assembly.replaceAll("\\b"+getVarNameByIndex(i)+"\\b", ""+getVarAddressByIndex(i));
+			assembly=assembly.replaceAll("\\b"+getVarNameByIndex(i)+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES, ""+getVarAddressByIndex(i));
 
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;

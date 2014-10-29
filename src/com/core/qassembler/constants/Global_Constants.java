@@ -72,6 +72,7 @@ public interface Global_Constants {
 								   {"QRCOUNT",""+QREGISTER_COUNT}};
 	
     //REGEX PATTERNS:
+	final String PATT_SPECIAL_REGEX_CHARS =  "[{}()\\[\\].+*?^$\\\\|]";
 	final String PATT_FILENAME=	 			 "[^\\\\]*$";
 	final String PATT_FILEFORMAT=	 		 "[^\\.]*$";
 	final String PATT_INCLUDING= 	 		 "^(?:.+?)?get.+?([a-z|A-Z].+?"+FILESOURCE_FORMAT+")";
@@ -80,13 +81,14 @@ public interface Global_Constants {
 	final String PATT_LABEL=	 	 		 "^(?:[ |	]+?)?(.+?)(?:[ |	]+?)?\\:";
 	final String PATT_COMMENT=	 	 		 "(?:\\;.+?$)|\\/\\*(?:(?:.|\\n)+?)?\\*\\/";
 	final String PATT_EMPTYLINE= 	 		 "(?m)^[ \\t]*\r?\n";
+	final String PATT_TEMPLATE_OUTSIDEQUOTES="(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 	final String PATT_EXPRESSION_VAR=		 "((?:[0-9]|\\$.+?)+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?((?:[0-9]|\\$.+?)+?$)";
 	final String PATT_EXPRESSION=	 		 "([0-9]+?)(?:[ |	]+?)?([+\\-\\*\\/])+?(?:[ |	]+?)?([0-9]+?$)";
 	final String PATT_EXPRESSION_V2= 		 "[^a-z|0-9](?:[ |	|\\(]+)?[0-9]+?(?:[ |	]+?)?(?:[\\(\\)+\\-\\*\\/]+?(?:[ |	]+?)?[0-9])+(?:[ |	|\\)]+)?";
 	final String PATT_EXPRESSION_V3= 		 "\\(+?(?:(?:[0-9])?.+)?\\)";
 	final String PATT_EXPRESSION_V4= 		 "\\(+?(?:(?:[0-9])?.+?)(?:,|\\.| |	|$)";
 	final String PATT_EXPRESSION_V5=		 "\\B\\(.+?\\)\\B";
-	final String PATT_EXPRESSION_V6=		 "_(.+?)_";
+	final String PATT_EXPRESSION_V6=		 "_(.+?)_"+PATT_TEMPLATE_OUTSIDEQUOTES;
 	final String PATT_VARIABLEDECL=  		 "^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME=  		 "^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT=		 "mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
@@ -101,6 +103,5 @@ public interface Global_Constants {
 	final String PATT_NUMBER=				 "[-+]?(?:[ |	]+)?[0-9]*(?:[ |	]+)?\\.?(?:[ |	]+)?[0-9]+(?:[ |	]+)?";
 	final String PATT_TIMES=				 "\\btimes(?:[ |	]+)?(-?[0-9]+?)\\b(?:[ |	]+)?(.+?)\\bendtimes\\b";
 	final String PATT_MACRO_DEFINE_DECL=	 "(?i)#(?:[ |	]+)?define(?:[ |	]+)(\\b.+?\\b)(?:[ |	]+)(.+?)(?:[&]|$)";
-	final String PATT_TEMPLATE_OUTSIDEQUOTES="(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 	final String PATT_INSTR_NEWLINE=		 "&"+PATT_TEMPLATE_OUTSIDEQUOTES;
 }

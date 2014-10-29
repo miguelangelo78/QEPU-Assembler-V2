@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
 import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
+import com.core.qassembler.preassembler.expression.ExpressionResolver;
 import com.utils.regex.RegexHandler;
 
 public class Defines implements Global_Constants{
@@ -24,7 +26,7 @@ public class Defines implements Global_Constants{
 	}
 	
 	public String getDefineContent(String define_name){
-		return (String)define_list.get(define_name);
+		return ""+define_list.get(define_name);
 	}
 	
 	public String getDefineNameByIndex(int index){
@@ -58,11 +60,10 @@ public class Defines implements Global_Constants{
 			String define_name=((String[])define_matchlist.get(i))[1];
 			if(!isDefined(define_name)){
 				Object define_content=((String[])define_matchlist.get(i))[2];
+				define_content=ExpressionResolver.resolve(""+define_content); // SEE IF IT'S AN EXPRESSION, AND IF IT IS, SOLVE IT
 				declare(define_name, define_content);
 				String define_wholematch=((String[])define_matchlist.get(i))[0];
-				//FIX: ADD SLICES TO [] BECAUSE OF REGEX
-				define_wholematch=define_wholematch.replace("[", "\\[").replace("]","\\]");
-				assembly=assembly.replaceFirst(define_wholematch, "");
+				assembly=assembly.replaceFirst(RegexHandler.sanitizeString(define_wholematch), "");
 			}else throw new Exception("***** ERROR: Define macro '"+define_name+"' has been previously defined!");
 		}
 		// TODO: SUBSTITUTE THE REFERENCES OF THE DECLARED DEFINES INTO ITS CONTENTS

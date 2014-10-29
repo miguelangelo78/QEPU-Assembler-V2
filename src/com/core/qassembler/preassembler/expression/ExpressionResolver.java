@@ -12,7 +12,7 @@ import com.utils.regex.RegexHandler;
 
 public class ExpressionResolver implements Global_Constants{
 	
-	private JEP expressionParser;
+	private static JEP expressionParser;
 	
 	public ExpressionResolver(){
 		expressionParser=new JEP();
@@ -28,11 +28,20 @@ public class ExpressionResolver implements Global_Constants{
 			String expression_wholematch=((String[])expressionMatcher.get(i))[0];
 			String expression=((String[])expressionMatcher.get(i))[1];
 			expressionParser.parseExpression(expression);
-			// ADD SLASHES SO THE REPLACEFIRST FUNCTION DOESN'T CRASH:
-			expression_wholematch=expression_wholematch.replace("+","\\+").replace("*", "\\*").replace("/", "\\/").replace("(", "\\(").replace(")", "\\)");
-			assembly=assembly.replaceFirst(expression_wholematch, Long.toString((long)expressionParser.getValue()));
+			assembly=assembly.replaceFirst(RegexHandler.sanitizeString(expression_wholematch), 
+										   Long.toString((long)expressionParser.getValue()));
 		}
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
+	}
+	
+	private static boolean is_expression(String expression){
+		return RegexHandler.match(PATT_EXPRESSION_V6, expression,0,null).size()>0;
+	}
+	
+	public static Object resolve(String expression){
+		if(!is_expression(expression)) return expression;
+		expressionParser.parseExpression(expression.replace("_",""));
+		return (long)expressionParser.getValue();
 	}
 }

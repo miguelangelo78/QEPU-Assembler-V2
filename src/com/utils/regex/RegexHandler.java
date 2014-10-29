@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexHandler {
+import com.core.qassembler.constants.Global_Constants;
+
+public class RegexHandler implements Global_Constants{
 	
 	public static List<Object> match(String pattern,String text,int patternFlags,int[]groups){
 		List<Object> matchlist=new ArrayList<Object>();
@@ -18,5 +20,9 @@ public class RegexHandler {
 				matchlist.add(grouplist);
 			}
 		return matchlist;
+	}
+	
+	public static String sanitizeString(String str){
+		return Pattern.compile(PATT_SPECIAL_REGEX_CHARS).matcher(str).replaceAll("\\\\$0"); 
 	}
 }
