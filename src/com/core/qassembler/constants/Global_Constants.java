@@ -93,7 +93,7 @@ public interface Global_Constants {
 	final String PATT_VARIABLENAME=  		 "^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT=		 "mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
 	final String PATT_CHARCONSTANT=			 "'(.+?)'";
-	final String PATT_INTERVAL=				 "([0-9]+)(?:[ |	]+?)?\\.\\.+(?:[ |	]+?)?([0-9]+)";
+	final String PATT_INTERVAL=				 "(-?[0-9]+)(?:[ |\\t]+?)?\\.\\.+(?:[ |\\t]+?)?(-?[0-9]+)";
 	final String PATT_FUNCIONCONTAINER=		 "(.+?)\\[(.+?)\\]";
 	final String PATT_CURRLINE=				 "\\$";
 	final String PATT_HEX=					 "0x[0-9a-f]+";
