@@ -49,6 +49,9 @@ public class Defines implements Global_Constants{
 	
 	public MainProgramFile handleDefines(MainProgramFile mainFile) throws Exception{
 		String assembly=mainFile.getFile().getAssemblyCode();
+		// FIX CHARACTERS '_' BEING NEXT TO CONSTANTS (BOUNDARY BUG):
+		assembly=assembly.replace("_"," _ ");
+		
 		// TODO: DECLARE DEFINE BY MATCHING THE DECLARATION
 		List<Object> define_matchlist=RegexHandler.match(PATT_MACRO_DEFINE_DECL, assembly, Pattern.MULTILINE, new int[]{0,1,2});
 		for(int i=0;i<define_matchlist.size();i++){
@@ -69,6 +72,7 @@ public class Defines implements Global_Constants{
 			if(define_referenced)
 				assembly=assembly.replaceAll("\\b"+define_name+"\\b", (String) getDefineContent(define_name));
 		}
+		assembly=assembly.replaceAll(" _ ", "_"); // FIX _CONSTANT_ BUG BECAUSE OF BOUNDARIES
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
 	}
