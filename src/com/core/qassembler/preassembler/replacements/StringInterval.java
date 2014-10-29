@@ -3,11 +3,11 @@ package com.core.qassembler.preassembler.replacements;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.utils.regex.RegexHandler;
 
-public class StringInterval implements QConstants{
+public class StringInterval implements Global_Constants{
 	public StringInterval(){}
 	
 	public MainProgramFile replaceAll(MainProgramFile mainFile){
@@ -50,6 +50,7 @@ public class StringInterval implements QConstants{
 				character=ConstantReplacements.fixEscapes(charMatch).charAt(0);
 			assembly=assembly.replace(wholeMatch, ""+(int)character);
 		}
+		
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
 	}

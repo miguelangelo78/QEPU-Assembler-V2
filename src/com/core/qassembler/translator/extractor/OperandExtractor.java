@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.utils.Misc;
 
-public class OperandExtractor implements QConstants{
+public class OperandExtractor implements Global_Constants{
 
 	public OperandExtractor() { }
 	

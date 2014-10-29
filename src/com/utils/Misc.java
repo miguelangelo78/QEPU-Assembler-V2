@@ -5,10 +5,10 @@ import java.util.AbstractList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.utils.regex.RegexHandler;
 
-public class Misc implements QConstants{
+public class Misc implements Global_Constants{
 	
 	public static byte getByteAt(long dword,int index){
 		return ByteBuffer.allocate(8).putLong(dword).array()[7-index];

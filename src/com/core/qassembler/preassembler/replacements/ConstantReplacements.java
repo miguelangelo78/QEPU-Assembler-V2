@@ -2,12 +2,12 @@ package com.core.qassembler.preassembler.replacements;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.Memory;
 import com.utils.regex.RegexHandler;
 
-public class ConstantReplacements implements QConstants{
+public class ConstantReplacements implements Global_Constants{
 	public ConstantReplacements(){ }
 	
 	public static String fixEscapes(String src){
@@ -30,7 +30,9 @@ public class ConstantReplacements implements QConstants{
 	
 	public static MainProgramFile replaceAll(MainProgramFile mainFile,Memory assemblerMemory){
 		String assembly=mainFile.getFile().getAssemblyCode();
-		
+		// FIX CHARACTERS '_' BEING NEXT TO CONSTANTS (BOUNDARY BUG):
+		assembly=assembly.replace("_"," _ ");
+				
 		// replace binary, hexadecimal and octal numbers (in strings) into decimal numbers (in strings)
 		List<Object> basesMatch=RegexHandler.match(PATT_ALLBASES, assembly, Pattern.MULTILINE|Pattern.CASE_INSENSITIVE, null);
 		for(int i=0;i<basesMatch.size();i++){
@@ -55,10 +57,13 @@ public class ConstantReplacements implements QConstants{
 		for (String key : CREGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  CREGISTER_NOCONTAINER.get(key));
 		for (String key : QREGISTER_CONTAINER.keySet())   assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QREGISTER_CONTAINER.get(key));
 		for (String key : QREGISTER_NOCONTAINER.keySet()) assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QREGISTER_NOCONTAINER.get(key));
+		for (String key : CREGISTER_OFF.keySet())   	  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  CREGISTER_OFF.get(key));
+		for (String key : QREGISTER_OFF.keySet()) 		  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QREGISTER_OFF.get(key));
 		for (String key : QBIT_ALL.keySet()) 			  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QBIT_ALL.get(key));
 		for (String key : QBIT_THETA.keySet()) 			  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QBIT_THETA.get(key));
 		for (String key : QBIT_PHI.keySet()) 			  assembly=assembly.replaceAll("(?i)\\b"+key+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES,  QBIT_PHI.get(key));
 		
+		assembly=assembly.replaceAll(" _ ", "_"); // FIX _CONSTANT_ BUG BECAUSE OF BOUNDARIES
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
 	}

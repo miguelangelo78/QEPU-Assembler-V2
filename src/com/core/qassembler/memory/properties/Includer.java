@@ -3,12 +3,12 @@ package com.core.qassembler.memory.properties;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.file.ProgramFileHandler;
 import com.utils.regex.RegexHandler;
 
-public class Includer implements QConstants{
+public class Includer implements Global_Constants{
 	
 	private ArrayList<ProgramFileHandler> includeList;
 	private String basePath;

@@ -3,12 +3,12 @@ package com.core.qassembler.translator;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.dictionary.InstructionDictionary;
 import com.core.qassembler.translator.extractor.Extractor;
 import com.utils.Misc;
 
-public class InstructionTranslator implements QConstants{
+public class InstructionTranslator implements Global_Constants{
 	
 	private InstructionDictionary ins_dictionary;
 	private Extractor extractor;
@@ -74,9 +74,5 @@ public class InstructionTranslator implements QConstants{
 		try{ op3=Misc.extractNumber(ops[3]); }catch(Exception e){}
 		
 		return new long[]{functionCode,op1,meta1,op2,meta2,op3,meta3};
-	}
-	
-	public long[] getEOFoperands(){
-		return new long[]{(long)ins_dictionary.getInstructionCode("HALT"),0,0,0,0,0,0};
 	}
 }

@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.preassembler.replacements.ConstantReplacements;
 import com.utils.regex.RegexHandler;
 
-public class Offset implements QConstants{
+public class Offset implements Global_Constants{
 	private Map<Integer,Integer> offset_list;
 
 	public Offset(){

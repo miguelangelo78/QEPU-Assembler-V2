@@ -3,10 +3,10 @@ package com.core.qassembler.file;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.utils.regex.RegexHandler;
 
-public class ProgramFileHandler implements QConstants{
+public class ProgramFileHandler implements Global_Constants{
 	
 	private String program_filepath;
 	private String program_name,program_name_format_preassembled,program_name_format_assembled;
@@ -90,6 +90,10 @@ public class ProgramFileHandler implements QConstants{
 	
 	public void setAssemblyCode(String assembly_code){
 		this.assembly_code=assembly_code;
+	}
+	
+	public void appendCode(String line){
+		this.assembly_code+=line;
 	}
 	
 	public String getAssemblyCode(){

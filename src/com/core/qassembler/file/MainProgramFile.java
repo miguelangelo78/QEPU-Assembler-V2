@@ -9,10 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.utils.Misc;
 
-public class MainProgramFile implements QConstants{
+public class MainProgramFile implements Global_Constants{
 	private ProgramFileHandler mainProgram;
 	private ArrayList<Long> machinecode;
 	private DataOutputStream mainFileHandler;

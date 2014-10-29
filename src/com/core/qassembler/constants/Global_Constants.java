@@ -2,14 +2,8 @@ package com.core.qassembler.constants;
 
 import java.util.HashMap;
 
-public interface QConstants {
+public interface Global_Constants {
 	// GLOBAL VARIABLES:
-	// PRE CONSTANTS:
-	final double VERSION_QASM=0.42;
-	final String[][] preConstants={{"PI","3.141592653589793"},
-								   {"E","2.71828"},
-								   {"VER","\"QASM (Quantum Assembler) Version "+VERSION_QASM+".\\\\0\""}};
-	
     // TYPES OF OPERANDS:
     final int FUNC=0;
 	final int OP1=1;
@@ -52,6 +46,8 @@ public interface QConstants {
 	final HashMap<String, String> CREGISTER_NOCONTAINER=new HashMap<String,String>();
 	final HashMap<String, String> QREGISTER_CONTAINER=new HashMap<String,String>();
 	final HashMap<String, String> QREGISTER_NOCONTAINER=new HashMap<String,String>();
+	final HashMap<String, String> QREGISTER_OFF=new HashMap<String,String>();
+	final HashMap<String, String> CREGISTER_OFF=new HashMap<String,String>();
 	final HashMap<String,String> QBIT_ALL=new HashMap<String,String>();
 	final HashMap<String,String> QBIT_THETA=new HashMap<String,String>();
 	final HashMap<String,String> QBIT_PHI=new HashMap<String,String>();
@@ -64,6 +60,17 @@ public interface QConstants {
 	final char STRING_TERMINATOR='\0';
 	final int CREGISTER_COUNT=25;
 	final int QREGISTER_COUNT=25;
+	
+	// PRE CONSTANTS:
+	final double VERSION_QASM=0.42;
+	final String[][] preConstants={{"PI","3.141592653589793"},
+								   {"E","2.71828"},
+								   {"VER","\"QASM (Quantum Assembler) Version "+VERSION_QASM+".\\\\0\""},
+								   {"CRSIZE",""+CREGISTER_SIZE},
+								   {"QRSIZE",""+QREGISTER_SIZE},
+								   {"CRCOUNT",""+CREGISTER_COUNT},
+								   {"QRCOUNT",""+QREGISTER_COUNT}};
+	
     //REGEX PATTERNS:
 	final String PATT_FILENAME=	 			 "[^\\\\]*$";
 	final String PATT_FILEFORMAT=	 		 "[^\\.]*$";
@@ -78,6 +85,8 @@ public interface QConstants {
 	final String PATT_EXPRESSION_V2= 		 "[^a-z|0-9](?:[ |	|\\(]+)?[0-9]+?(?:[ |	]+?)?(?:[\\(\\)+\\-\\*\\/]+?(?:[ |	]+?)?[0-9])+(?:[ |	|\\)]+)?";
 	final String PATT_EXPRESSION_V3= 		 "\\(+?(?:(?:[0-9])?.+)?\\)";
 	final String PATT_EXPRESSION_V4= 		 "\\(+?(?:(?:[0-9])?.+?)(?:,|\\.| |	|$)";
+	final String PATT_EXPRESSION_V5=		 "\\B\\(.+?\\)\\B";
+	final String PATT_EXPRESSION_V6=		 "_(.+?)_";
 	final String PATT_VARIABLEDECL=  		 "^(?:[ |	]+?)?\\$.+?,.+?$";
 	final String PATT_VARIABLENAME=  		 "^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT=		 "mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";

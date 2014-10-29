@@ -3,9 +3,9 @@ package com.core.qassembler.translator.extractor;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 
-public class TypeExtractor implements QConstants{
+public class TypeExtractor implements Global_Constants{
 
 	public TypeExtractor() { }
 	

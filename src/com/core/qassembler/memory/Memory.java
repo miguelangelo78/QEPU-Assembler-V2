@@ -1,6 +1,6 @@
 package com.core.qassembler.memory;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.core.qassembler.memory.properties.Defines;
 import com.core.qassembler.memory.properties.Includer;
@@ -9,7 +9,7 @@ import com.core.qassembler.memory.properties.Offset;
 import com.core.qassembler.memory.properties.Variable;
 import com.utils.regex.RegexHandler;
 
-public class Memory implements QConstants{
+public class Memory implements Global_Constants{
 	private Includer includer; // INCLUDES FILES
 	private Variable variable_handler; // VARIABLES TO BE DECLARED
 	private Defines defines_handler; // PRECOMPILER CONSTANTS TO BE DECLARED

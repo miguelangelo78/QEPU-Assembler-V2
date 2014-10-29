@@ -1,9 +1,9 @@
 package com.core.qassembler.dictionary;
 
 import java.util.HashMap;
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 
-public class InstructionDictionary implements QConstants{
+public class InstructionDictionary implements Global_Constants{
 	@SuppressWarnings("serial")
 	private static HashMap<String,Object[]> instructionDictionary=new HashMap<String,Object[]>(){{
         //INSTRUCTION SET AND OPERAND TYPES:

@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.utils.regex.RegexHandler;
 
-public class Interval implements QConstants{
+public class Interval implements Global_Constants{
 	public Interval(){
 		
 	}
@@ -17,12 +17,11 @@ public class Interval implements QConstants{
 		String assembly=mainFile.getFile().getAssemblyCode();
 		//SUBSTITUE '&' INTO NEW LINES
 		assembly=assembly.replaceAll(PATT_INSTR_NEWLINE,"\n");
-		//SUBSTITUTE THE INTERVAL BY MULTIPLE MOVS DETERMINED BY THE INTERVAL
+		
 		Pattern intervals_patt=Pattern.compile(PATT_INTERVAL,Pattern.CASE_INSENSITIVE|Pattern.MULTILINE);
     	for(String line:assembly.split("\\n")){
     		Matcher intervals_match=intervals_patt.matcher(line.trim());
     		String interval_substitute="";
-    		
     		while(intervals_match.find()){
     			int start_interval=Integer.parseInt(intervals_match.group(1).trim());
         		int end_interval=Integer.parseInt(intervals_match.group(2).trim());
@@ -39,9 +38,9 @@ public class Interval implements QConstants{
         			end_interval=Integer.parseInt(intervals_match.group(2).trim());
         			
         			if(start_interval<=end_interval)
-            			for(int i=start_interval;i<=end_interval;i++) interval_substitute=interval_substitute.replaceFirst(intervals_match.group(0), Integer.toString(i)+" ");
+            			for(int i=start_interval;i<=end_interval;i++) interval_substitute=interval_substitute.replaceFirst(intervals_match.group(0), Integer.toString(i)+"");
             		else 
-            			for(int i=start_interval;i>=end_interval;i--) interval_substitute=interval_substitute.replaceFirst(intervals_match.group(0), Integer.toString(i)+" ");
+            			for(int i=start_interval;i>=end_interval;i--) interval_substitute=interval_substitute.replaceFirst(intervals_match.group(0), Integer.toString(i)+"");
             	}
         		
         		//CHECK FOR LEFTOVER INTERVALS:

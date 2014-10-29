@@ -3,11 +3,11 @@ package com.core.qassembler.memory.properties;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.core.qassembler.constants.QConstants;
+import com.core.qassembler.constants.Global_Constants;
 import com.core.qassembler.file.MainProgramFile;
 import com.utils.regex.RegexHandler;
 
-public class Label implements QConstants{
+public class Label implements Global_Constants{
 	private Map<String,Integer> label_list;
 	
 	public Label(){

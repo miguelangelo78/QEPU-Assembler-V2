@@ -45,7 +45,6 @@ public class QAssembler {
 				return e.getMessage();
 			}
 		}
-		mainFile.insertMachineCode(translator.getEOFoperands());
 		mainFile.createBinaryFile(); // CREATE THE FINAL FILE WHICH IS THE BINARY FILE
 		result="STATUS: The main file '"+mainFile.getFile().getPreAssembledName()+"' has been successfully assembled ("+programCounterMax+" lines).";
 		return result;
