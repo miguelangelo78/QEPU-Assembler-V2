@@ -104,4 +104,5 @@ public interface Global_Constants {
 	final String PATT_TIMES=				 "\\btimes(?:[ |	]+)?(-?[0-9]+?)\\b(?:[ |	]+)?(.+?)\\bendtimes\\b";
 	final String PATT_MACRO_DEFINE_DECL=	 "(?i)#(?:[ |	]+)?define(?:[ |	]+)(\\b.+?\\b)(?:[ |	]+)(.+?)(?:[&]|$)";
 	final String PATT_INSTR_NEWLINE=		 "&"+PATT_TEMPLATE_OUTSIDEQUOTES;
+	// PATT INTERVAL CHANGED: (-?[0-9]+)(?:[ |\t]+?)?\.\.+(?:[ |\t]+?)?(-?[0-9]+)(?:(?:[ |\t]+?)?,(?:[ |\t]+?)?(-?[0-9]+))?
 }
