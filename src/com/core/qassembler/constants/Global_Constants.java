@@ -93,7 +93,7 @@ public interface Global_Constants {
 	final String PATT_VARIABLENAME=  		 "^(?:[ |	]+?)?\\$(?:[ |	]+?)?(.+?)$";
 	final String PATT_STRINGCONSTANT=		 "mov.+?\\[.+?\\].+?\"(.+?)\"(?:.+?)?$";
 	final String PATT_CHARCONSTANT=			 "'(.+?)'";
-	final String PATT_INTERVAL=				 "(-?[0-9]+)(?:[ |\\t]+?)?\\.\\.+(?:[ |\\t]+?)?(-?[0-9]+)";
+	final String PATT_INTERVAL="(-?[0-9.]+)(?:[ \\t]+?)?\\.\\.+(?:[ \\t]+?)?(-?[0-9.]+)(?:(?:[ \\t]+?)?#(?:[ \\t]+?)?(-?[0-9.]+))?";
 	final String PATT_FUNCIONCONTAINER=		 "(.+?)\\[(.+?)\\]";
 	final String PATT_CURRLINE=				 "\\$";
 	final String PATT_HEX=					 "0x[0-9a-f]+";
@@ -104,5 +104,4 @@ public interface Global_Constants {
 	final String PATT_TIMES=				 "\\btimes(?:[ |	]+)?(-?[0-9]+?)\\b(?:[ |	]+)?(.+?)\\bendtimes\\b";
 	final String PATT_MACRO_DEFINE_DECL=	 "(?i)#(?:[ |	]+)?define(?:[ |	]+)(\\b.+?\\b)(?:[ |	]+)(.+?)(?:[&]|$)";
 	final String PATT_INSTR_NEWLINE=		 "&"+PATT_TEMPLATE_OUTSIDEQUOTES;
-	// PATT INTERVAL CHANGED: (-?[0-9]+)(?:[ |\t]+?)?\.\.+(?:[ |\t]+?)?(-?[0-9]+)(?:(?:[ |\t]+?)?,(?:[ |\t]+?)?(-?[0-9]+))?
 }

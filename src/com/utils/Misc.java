@@ -10,6 +10,12 @@ import com.utils.regex.RegexHandler;
 
 public class Misc implements Global_Constants{
 	
+
+	public static String formatFloat(float num){
+		if(num==(long)num) return String.format("%d",(long)num);
+		else return String.format("%.6s",num);
+	}
+	
 	public static byte getByteAt(long dword,int index){
 		return ByteBuffer.allocate(8).putLong(dword).array()[7-index];
 	}

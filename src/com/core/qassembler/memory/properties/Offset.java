@@ -49,9 +49,9 @@ public class Offset implements Global_Constants{
 			//SET INTERVALS' OFFSET
 			List<Object> intervalMatches=RegexHandler.match(PATT_INTERVAL, assemblySplitted[line], 0, new int[]{1,2});
 			if(intervalMatches.size()>0){
-				int intervalStart=Integer.parseInt(((String[])intervalMatches.get(0))[0]);
-				int intervalEnd=Integer.parseInt(((String[])intervalMatches.get(0))[1]);
-				addOffset(line+1,Math.abs(intervalStart-intervalEnd)+1);
+				float intervalStart=Float.parseFloat(((String[])intervalMatches.get(0))[0]);
+				float intervalEnd=Float.parseFloat(((String[])intervalMatches.get(0))[1]);
+				addOffset(line+1,Math.abs((int)intervalStart-(int)intervalEnd)+1);
 			}
 		}
 	}
