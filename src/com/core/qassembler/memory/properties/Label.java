@@ -37,7 +37,7 @@ public class Label implements Global_Constants{
 		for(int line=0;line<assembly_splitted.length;line++){
 			List<Object> labelDeclList=RegexHandler.match(PATT_LABEL, assembly_splitted[line], 0, new int[]{0,1});
 			for(int i=0;i<labelDeclList.size();i++){
-				String labelName=(String)((String[])labelDeclList.get(i))[1];
+				String labelName=(String)((String[])labelDeclList.get(i))[1].trim();
 				String wholeMatch=(String)((String[])labelDeclList.get(i))[0];
 				declare(labelName, line);
 				assembly=assembly.replace(wholeMatch, "NOP");
