@@ -58,13 +58,11 @@ public class InstructionTranslator implements Global_Constants{
 		validate.add("Instruction '"+instruction+"' (line "+programcounter+") not valid!");
 		
 		// USE CLASS INSTRUTION DICTIONARY TO DETERMINE WHETHER OR NOT THE INSTRUCTION IS VALID
-		Object []extraction_ofops=extractor.getOperandExtractor().extract(instruction); // FETCH OPERANDS
-		String ops[]=(String[]) extraction_ofops[0]; // FETCH OPERANDS
-		int ops_realcount=(int) extraction_ofops[1]; // FETCH REAL OPERAND COUNT
+		String ops[]=extractor.getOperandExtractor().extract(instruction); // FETCH OPERANDS
 		
 		if(ins_dictionary.instructionExists(ops[0])){ // DOES THE FUNCTION EXIST?
 			int operandCountNecessary=ins_dictionary.getInstructionWidth(ops[0]);
-			int operandCountGiven=ops_realcount;
+			int operandCountGiven=ops.length-1;
 			if(operandCountNecessary==operandCountGiven) // DOES THE SIZE MATCH?
 				if(typesValid(ops)){ //TODO: DO THE TYPES AND TYPE SIZES ALSO MATCH?
 					validate.set(0,true);
@@ -77,13 +75,11 @@ public class InstructionTranslator implements Global_Constants{
 	
 	public long[] translate(String instruction,int programcounter) throws Exception{
 		long functionCode=0,op1=0,op2=0,op3=0,meta1=0,meta2=0,meta3=0;
-		Object []extraction_ofops=extractor.getOperandExtractor().extract(instruction); // FETCH OPERANDS
-		String ops[]=(String[]) extraction_ofops[0]; // FETCH OPERANDS
-		int ops_realcount=(int) extraction_ofops[1]; // FETCH REAL OPERAND COUNT
+		String ops[]=extractor.getOperandExtractor().extract(instruction); // FETCH OPERANDS
 		
 		// REMOVE CASTS AND CAP THE OPERANDS:
 		try{ ops[1]=CastCapper.removeCast(ops[1]); }catch(Exception e){} // THE 1ST OPERAND DOESN'T GET CAPPED, IF IT'S USING CAST
-		for(int i=2;i<ops_realcount;i++) ops[i]=CastCapper.cap(ops[i]);
+		for(int i=2;i<ops.length;i++) ops[i]=CastCapper.cap(ops[i]);
 		
 		//FETCH OPERAND METADATA (CURRENTLY IT'S JUST THEIR TYPE)
 		try{ meta1=extractor.getTypeExtractor().getOperandMetadata(ops[1]); }catch(Exception e){}

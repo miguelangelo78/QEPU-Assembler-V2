@@ -40,6 +40,8 @@ public class CastCapper implements Global_Constants{
 	public static String removeCast(String operand){
 		for(String dimensionPatt:CASTING_LIST.keySet())
 			operand=operand.replaceAll(dimensionPatt,"");
+		operand=operand.replaceAll(CAST_CUSTOM, "");
+		operand=operand.replaceAll(CAST_AUTO, "");
 		return operand.trim();
 	}
 	
@@ -47,9 +49,10 @@ public class CastCapper implements Global_Constants{
 		// SEE IF IT'S USING A CAST, IF IT IS, EXTRACT THE NUMBER, CAP IT, AND RETURN IT
 		if(!usingCast(operand)) return operand;
 		int bit_count=getCastSize(operand);
+		operand=removeCast(operand);
 		String operand_number=String.format("%"+SYS_STD_SIZE+"s",Long.toBinaryString(Misc.extractNumber(operand))).replace(' ', '0');
 		for(int i=bit_count;i<operand_number.length();i++)
 			operand_number=Misc.setCharAt(operand_number, (operand_number.length()-1)-i,'0'); // CAP THE NUMBER:
-		return removeCast(operand).replaceAll(PATT_NUMBER, ""+Integer.parseInt(operand_number,2)); // REMOVE THE CAST,CONVERT BINARY TO INT, INT TO STR AND REPLACE THE OLD NUMBER BY THE NEW ONE
+		return operand.replaceAll(PATT_NUMBER, ""+Integer.parseInt(operand_number,2)); // REMOVE THE CAST,CONVERT BINARY TO INT, INT TO STR AND REPLACE THE OLD NUMBER BY THE NEW ONE
 	}
 }

@@ -2,6 +2,7 @@ package com.utils;
 
 import java.nio.ByteBuffer;
 import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,12 @@ public class Misc implements Global_Constants{
 	public static boolean arrayContains(int[] haystack,int needle){
 		for(int i=0;i<haystack.length;i++) if(haystack[i]==needle) return true;
 		return false;
+	}
+	
+	public static String [] removeEmptiesArray(String [] arr){
+		List<String> arr_list=new ArrayList<String>();
+		for(String str:arr) if(str!=null && str.length()>0) arr_list.add(str);
+		return arr_list.toArray(new String[arr_list.size()]);
 	}
 	
 	public static List<Long> asList(final long [] l){
