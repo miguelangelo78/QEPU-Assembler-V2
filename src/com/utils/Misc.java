@@ -43,7 +43,7 @@ public class Misc implements Global_Constants{
 	}
 	
 	public static long extractNumber(String str){
-		String numberStr=(String)(RegexHandler.match(PATT_NUMBER,str, 0, null).get(0));
+		String numberStr=((String)(RegexHandler.match(PATT_NUMBER,str, 0, null).get(0))).trim();
 		if(numberStr.contains(".")) return Float.floatToIntBits(Float.parseFloat(numberStr)); // DEALING WITH FLOATS
 		else return Long.parseLong(numberStr);
 	}
@@ -58,5 +58,9 @@ public class Misc implements Global_Constants{
 		int arr_length=arr.length;
 		for(int i=0;i<arr_length;i++) buff+=arr[i]+((i<arr_length-1)?",":"");
 		return buff+")";
+	}
+	
+	public static String setCharAt(String str, int pos, char c) {
+		    return str.substring(0, pos) + c + str.substring(pos + 1);
 	}
 }

@@ -71,10 +71,10 @@ public class Preassembler implements Global_Constants{
 	private MainProgramFile handleOffsets(MainProgramFile mainFile) throws Exception{
 		assemblerMemory.handleOffsets(mainFile); // STRINGS OCCUPY NOT JUST ONE LINE, NOR DO VARIABLE DECLARATIONS OR INTERVALS (X..Y)
 		mainFile=stringIntervals.replaceAll(mainFile); // REPLACE STRINGS INTO THEIR CHARACTER ARRAYS
+		mainFile=handleConstantReplacements(mainFile); // SUBSITUTE CONSTANTS INTO THEIR RESPECTIVE VALUE, SUCH AS NUMBER BASES, '$' CONSTANT AND REGISTERS'/QUBITS' ALIASES
 		mainFile=assemblerMemory.handleDefines(mainFile); // HANDLE MACROS AND CONSTANT DEFINITIONS
 		mainFile=handleExpressions(mainFile); // HANDLE EXPRESSIONS BEFORE MACROS BECAUSE THERE MAY BE EXPRESSIONS THERE
 		mainFile=assemblerMemory.handleVariables(mainFile); // DECLARE VARIABLES AFTER OVERWRITING CONSTANTS INTO THEIR PLACES
-		mainFile=handleConstantReplacements(mainFile); // SUBSITUTE CONSTANTS INTO THEIR RESPECTIVE VALUE, SUCH AS NUMBER BASES, '$' CONSTANT AND REGISTERS'/QUBITS' ALIASES
 		mainFile=stringIntervals.replaceAll(mainFile); // DO STRINGS AGAIN BECAUSE THE MACROS MAY CONTAIN STRINGS INSIDE THEM
 		mainFile=intervals.handleIntervals(mainFile); // HANDLE INTERVALS AGAIN FOR THERE MAY BE LEFTOVER INTERVALS AFTER THE EXPRESSIONS
 		mainFile=handleCommentsAndEmptyLines(mainFile); // THE DEFINITION OF CONSTANTS CREATES EMPTY LINES. CLEAN THEM

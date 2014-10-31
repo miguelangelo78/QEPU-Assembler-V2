@@ -11,15 +11,15 @@ public interface Global_Constants {
 	final int OP3=3;
 	
 	//OPERAND TYPES (MORE SPECIFIC) AND THEIR RESPECTIVE SIZES:
-	final int QREGISTER=0,QREGISTER_SIZE=32; 		  // %K%
-	final int QREGISTER_POINTER=1; 					  // [%K%]
-	final int CREGISTER=2,CREGISTER_SIZE=32;		  // {K}
-	final int CREGISTER_POINTER=3;					  // [{K}]
+	final int SYS_STD_SIZE=32;
+	final int QREGISTER=0,QREGISTER_SIZE=SYS_STD_SIZE; 		  // %K%
+	final int QREGISTER_POINTER=1; 					  		  // [%K%]
+	final int CREGISTER=2,CREGISTER_SIZE=SYS_STD_SIZE;		  // {K}
+	final int CREGISTER_POINTER=3;					  		  // [{K}]
 	final int QUBIT=4,QUBIT_THETA=5,QUBIT_PHI=6,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
-	final int MEMORYCONTAINER=7,MEMORY_SIZE=32;    	  // [K]
-	final int CONSTANT=8,CONSTANT_SIZE=32; 		   	  // K
-	
-	// TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSMEBLED:
+	final int MEMORYCONTAINER=7,MEMORY_SIZE=SYS_STD_SIZE;     // [K]
+	final int CONSTANT=8,CONSTANT_SIZE=SYS_STD_SIZE; 		  // K
+	// TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSEMBLED:
 	final int[][] TYPES_SIZES=new int[][]{{QREGISTER,		 QREGISTER_SIZE}, 
 										  {QREGISTER_POINTER,QREGISTER_SIZE},
 										  {CREGISTER,		 CREGISTER_SIZE},
@@ -29,6 +29,19 @@ public interface Global_Constants {
 										  {QUBIT_PHI,		 QUBIT_SIZE},
 										  {MEMORYCONTAINER,	 MEMORY_SIZE},
 										  {CONSTANT,		 CONSTANT_SIZE}};
+	
+	// CASTING PATTERNS:
+	@SuppressWarnings("serial")
+	final HashMap<String,Integer> CASTING_LIST=new HashMap<String,Integer>(){{
+		put("(?i)\\bBIT\\b",   1);	// 1 bit (boolean)
+		put("(?i)\\bNIBBLE\\b",4);  // 4 bits (unknown...) (signed and unsigned...)
+		put("(?i)\\bBYTE\\b",  8); 	// 8 bits char/ unsigned char
+		put("(?i)\\bWORD\\b",  16);	// 16 bits short/unsigned short
+		put("(?i)\\bDWORD\\b", 32);	// 32 bits int/unsigned int, float/unsigned float
+	}};
+	final String CAST_CUSTOM="(?i)\\bSIZE([0-9]+)?\\b"; // SIZE IS A SPECIAL CAST, IT NEEDS A NUMBER IN FRONT OF IT TO USE IT AS THE SIZE. Example: SIZE64, SIZE5
+	final String CAST_AUTO="(?i)\\bAUTO\\b";
+	
 	// METADATA CONSTANTS:
 	final int META_NULL=0;
 	final int META_CREGISTER=1;
