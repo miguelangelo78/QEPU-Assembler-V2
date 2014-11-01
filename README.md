@@ -76,28 +76,58 @@ register
 **64.** DEU - Quantum deutsch gate  
 
 ----------
-
 Sintaxes:
 ------------
 ```
 Coming soon . . . 
 ```
-
-
 ----------
-
-
-Operator sizes:
+System properties:
+------------
+```
+Coming soon . . . 
+```
+----------
+Available registers:
+------------
+```
+Coming soon . . . 
+```
+----------
+Primary memory properties:
+------------
+```
+Coming soon . . . 
+```
+----------
+Operator sizes and types:
 ------------
 ```
 Coming soon . . .
 ```
-
-Casts:
+----------
+Available casts:
 ------------
 ```
 Coming soon . . .
 ```
 __________
-
+Quantum computation:
+------------
+```
+Coming soon . . .
+```
+__________
+Limitations:
+------------
+```
+Coming soon . . .
+```
+__________
+About:
+------------
+```
+Coming soon . . . 
+```
+----------
 
