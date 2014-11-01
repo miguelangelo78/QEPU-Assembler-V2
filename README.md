@@ -1,4 +1,4 @@
-#**Project QEPU**
+#**Project QEPU** - Assembler
 ###32 bit quantum processor
 ######(QEPU: Quantum Electronic Processing Unit) 
 >![bloch sphere qubit representation](http://i.imgur.com/HtjlQ3l.png?1)  
