@@ -14,10 +14,10 @@ public class InstructionDictionary implements Global_Constants{
 		
 		put("NOP",		new Object[]{new int[]{0,0}});
         put("MOV",		new Object[]{new int[]{2,1},new int[]{MEMORYCONTAINER,QREGISTER,CREGISTER,CREGISTER_POINTER,QREGISTER_POINTER,QUBIT,QUBIT_THETA,QUBIT_PHI,STACK_HEAD,STACK_BASE},new int[]{MEMORYCONTAINER,QREGISTER,CREGISTER,CREGISTER_POINTER,QREGISTER_POINTER,QUBIT,QUBIT_THETA,QUBIT_PHI,CONSTANT,STACK_HEAD,STACK_BASE}});
-        put("POP",		new Object[]{new int[]{1,2},new int[]{MEMORYCONTAINER,QREGISTER,CREGISTER,CREGISTER_POINTER,QREGISTER_POINTER}});
+        put("POP",		new Object[]{new int[]{1,2},new int[]{MEMORYCONTAINER,QREGISTER,CREGISTER,CREGISTER_POINTER,QREGISTER_POINTER,STACK_HEAD,STACK_BASE}});
         put("POPA",		new Object[]{new int[]{0,3}});
         put("POPAQ",	new Object[]{new int[]{0,4}});
-        put("PUSH",		new Object[]{new int[]{1,5},new int[]{MEMORYCONTAINER,QREGISTER,CREGISTER,CONSTANT,CREGISTER_POINTER,QREGISTER_POINTER}});
+        put("PUSH",		new Object[]{new int[]{1,5},new int[]{MEMORYCONTAINER,QREGISTER,CREGISTER,CONSTANT,CREGISTER_POINTER,QREGISTER_POINTER,STACK_HEAD,STACK_BASE}});
         put("PUSHA",	new Object[]{new int[]{0,6}});
         put("PUSHAQ",	new Object[]{new int[]{0,7}});
         put("CMP",		new Object[]{new int[]{2,8},new int[]{QREGISTER,CREGISTER,MEMORYCONTAINER,CONSTANT},new int[]{QREGISTER,CREGISTER,MEMORYCONTAINER,CONSTANT}});
