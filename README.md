@@ -3,7 +3,7 @@
 ###32 bit quantum processor
 ---
 ###**QEPU INSTRUCTION SET (63 Functions):**
-###Data movement:
+>###Data movement:
 >**1.** MOV - Moves data between the registers and primary memory  
 	**2.** PUSH - Pushes data to the stack in memory  
 	**3.** PUSHA - Pushes all registers to the stack in memory  
