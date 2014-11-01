@@ -19,6 +19,8 @@ public interface Global_Constants {
 	final int QUBIT=4,QUBIT_THETA=5,QUBIT_PHI=6,QUBIT_SIZE=1; // <K> |K| !K! (< QUBIT BOTH DIMS,| QUBIT THETA, ! QUBIT PHI)
 	final int MEMORYCONTAINER=7,MEMORY_SIZE=SYS_STD_SIZE;     // [K]
 	final int CONSTANT=8,CONSTANT_SIZE=SYS_STD_SIZE; 		  // K
+	final int STACK_HEAD=9,STACK_HEAD_SIZE=SYS_STD_SIZE;
+	final int STACK_BASE=10,STACK_BASE_SIZE=SYS_STD_SIZE;
 	// TO PREVENT VARIABLES FROM DIFFERENT SIZES TO BE ASSEMBLED:
 	final int[][] TYPES_SIZES=new int[][]{{QREGISTER,		 QREGISTER_SIZE}, 
 										  {QREGISTER_POINTER,QREGISTER_SIZE},
@@ -28,8 +30,9 @@ public interface Global_Constants {
 										  {QUBIT_THETA,		 QUBIT_SIZE},
 										  {QUBIT_PHI,		 QUBIT_SIZE},
 										  {MEMORYCONTAINER,	 MEMORY_SIZE},
-										  {CONSTANT,		 CONSTANT_SIZE}};
-	
+										  {CONSTANT,		 CONSTANT_SIZE},
+										  {STACK_HEAD,		 STACK_HEAD_SIZE},
+										  {STACK_BASE,		 STACK_BASE_SIZE}};
 	// CASTING PATTERNS:
 	@SuppressWarnings("serial")
 	final HashMap<String,Integer> CASTING_LIST=new HashMap<String,Integer>(){{
@@ -54,6 +57,8 @@ public interface Global_Constants {
 	final int META_QUBIT=8;
 	final int META_QUBIT_THETA=9;
 	final int META_QUBIT_PHI=10;
+	final int META_STACK_HEAD=11;
+	final int META_STACK_BASE=12;
 	
 	final HashMap<String, String> CREGISTER_CONTAINER=new HashMap<String,String>();
 	final HashMap<String, String> CREGISTER_NOCONTAINER=new HashMap<String,String>();

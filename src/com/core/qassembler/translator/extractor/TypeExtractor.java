@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import com.core.qassembler.constants.Global_Constants;
 
+/**TODO: IMPROVE THIS CLASS TO EXTRACT THE TYPE IN A BETTER WAY */
+
 public class TypeExtractor implements Global_Constants{
 
 	public TypeExtractor() { }
 	
 	public int extract(String operand){
+		operand=operand.toUpperCase();
 		int type=-1;
 		if(operand.charAt(0)=='[' && operand.charAt(1)=='{') return CREGISTER_POINTER;
 		if(operand.charAt(0)=='[' && operand.charAt(1)=='%') return QREGISTER_POINTER;
-		
+		if(operand.charAt(0)=='S' && operand.charAt(1)=='H') return STACK_HEAD;
+		if(operand.charAt(0)=='S' && operand.charAt(1)=='B') return STACK_BASE;
+				
 		switch(operand.charAt(0)){
 			case '[': type=MEMORYCONTAINER; break;
 			case 'M': case 'm': type=MEMORYCONTAINER; break;
@@ -29,11 +34,14 @@ public class TypeExtractor implements Global_Constants{
 	}
 	
 	public byte getOperandMetadata(String operand){
+		operand=operand.toUpperCase();
 		byte meta=0x0;
 
 		if(operand.charAt(0)=='[' && operand.charAt(1)=='{') return META_CREGISTER_POINTER;
 		if(operand.charAt(0)=='[' && operand.charAt(1)=='%') return META_QREGISTER_POINTER;
-		
+		if(operand.charAt(0)=='S' && operand.charAt(1)=='H') return META_STACK_HEAD;
+		if(operand.charAt(0)=='S' && operand.charAt(1)=='B') return META_STACK_BASE;
+				
 		switch(operand.charAt(0)){
 			case '[': meta=META_MEM_CONTAINER; break;
 			case 'M': case 'm': meta=META_MEM_CONTAINER; break;
