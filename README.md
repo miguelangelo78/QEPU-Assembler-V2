@@ -2,7 +2,21 @@
 ######(Quantum Electronic Processing Unit)
 ###32 bit quantum processor
 ---
-###**QEPU INSTRUCTION SET (64 Functions):**
+Intro:
+------------
+```
+Coming soon . . .
+```
+__________
+Potential:
+------------
+```
+Coming soon . . .
+```
+__________
+#**Specifications**:
+
+###**INSTRUCTION SET (64 Functions):**
 >###Data movement:
 >**1.** MOV - Moves data between the registers and primary memory  
 	**2.** PUSH - Pushes data to the stack in memory  
@@ -142,6 +156,12 @@ Example code:
 Coming soon . . .
 ```
 __________
+The future:
+------------
+```
+Coming soon . . . 
+```
+----------
 About:
 ------------
 ```
