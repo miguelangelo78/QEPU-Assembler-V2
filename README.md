@@ -1,5 +1,6 @@
-#**Project QEPU**
-######(Quantum Electronic Processing Unit)
+#**Project QEPU** ![bloch sphere qubit representation](http://i.imgur.com/HtjlQ3l.png?1) 
+######(Quantum Electronic Processing Unit) 
+
 ###32 bit quantum processor
 ---
 Intro:
