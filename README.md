@@ -1,6 +1,6 @@
 #**Project QEPU**
 ###32 bit quantum processor
-######(QEPU= **Q**uantum **E**lectronic **P**rocessing **U**nit) 
+######(QEPU: Quantum Electronic Processing Unit) 
 >![bloch sphere qubit representation](http://i.imgur.com/HtjlQ3l.png?1)  
 	(bloch sphere qubit representation)
 
