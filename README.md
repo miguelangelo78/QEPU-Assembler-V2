@@ -112,6 +112,18 @@ Available casts:
 Coming soon . . .
 ```
 __________
+I/O:
+------------
+```
+Coming soon . . .
+```
+__________
+Data storage (permanent and volatile):
+------------
+```
+Coming soon . . .
+```
+__________
 Quantum computation:
 ------------
 ```
@@ -124,10 +136,15 @@ Limitations:
 Coming soon . . .
 ```
 __________
+Example code:
+------------
+```
+Coming soon . . .
+```
+__________
 About:
 ------------
 ```
 Coming soon . . . 
 ```
 ----------
-
