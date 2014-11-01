@@ -32,8 +32,8 @@
 **24.** SUB - Subtracts **two** registers and stores the result in another register  
 **25.** MUL- Multiplies **two** registers and stores the result in another register  
 **26.** DIV - Divides **two** registers and stores the result in another register  
-**27.** INC - Increments **two** registers and stores the result in another register  
-**28.** DEC - Decrements **two** registers and stores the result in another register  
+**27.** INC - Increments **one** register  
+**28.** DEC - Decrements **one** register  
 **29.** ABS - Applies absolute operator to **one** register and stores the result in another register  
 **30.** MOD - Applies the modulus operator to **two** registers and stores the result in another  
 **31.** NEG - Negates **one** register and stores the result in another register  
