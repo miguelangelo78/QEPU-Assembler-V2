@@ -22,7 +22,7 @@ public class StringInterval implements Global_Constants{
 					String [] ops=((String)stringMatch.get(i)).split(",");
 					List<Object> function_containerMatch=RegexHandler.match(PATT_FUNCIONCONTAINER, ops[0],0, new int[]{1,2});
 					String function=((String[])function_containerMatch.get(0))[0].trim();
-					String content=ConstantReplacements.fixEscapes(ops[1].replace("\"", "").trim());
+					String content=ConstantReplacements.fixEscapes(ops[1].replace("\"", ""));
 					int containerAddress=Integer.parseInt(((String[])function_containerMatch.get(0))[1].trim());
 					String buildStringReplacement="";
 					int buffLength=0;
