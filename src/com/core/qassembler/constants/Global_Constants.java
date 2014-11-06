@@ -113,7 +113,7 @@ public interface Global_Constants {
 	final String PATT_CHARCONSTANT=			 "'(.+?)'";
 	final String PATT_INTERVAL="(-?[0-9.]+)(?:[ \\t]+?)?\\.\\.+(?:[ \\t]+?)?(-?[0-9.]+)(?:(?:[ \\t]+?)?#(?:[ \\t]+?)?(-?[0-9.]+))?";
 	final String PATT_FUNCIONCONTAINER=		 "(.+?)\\[(.+?)\\]";
-	final String PATT_CURRLINE=				 "\\$";
+	final String PATT_CURRLINE=				 "\\B\\$\\B";
 	final String PATT_HEX=					 "0x[0-9a-f]+";
 	final String PATT_BIN=					 "0b[0-1]+";
 	final String PATT_OCTAL=				 "0o[0-7]+";
