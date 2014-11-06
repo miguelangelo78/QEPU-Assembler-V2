@@ -93,7 +93,7 @@ public class Variable implements Global_Constants{
 		
 		// SUBSTITUTE ALL THE REST (VARS REFS) INTO CONSTANTS (THEIR ADDRESSES)
 		for(int i=0;i<variable_list.size();i++)
-			assembly=assembly.replaceAll("\\b"+getVarNameByIndex(i)+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES, ""+getVarAddressByIndex(i));
+			assembly=assembly.replaceAll("\\$\\b"+getVarNameByIndex(i)+"\\b"+PATT_TEMPLATE_OUTSIDEQUOTES, ""+getVarAddressByIndex(i));
 
 		mainFile.getFile().setAssemblyCode(assembly);
 		return mainFile;
