@@ -48,7 +48,7 @@ public class ConstantReplacements implements Global_Constants{
 		String [] assembly_Splitted=assembly.split("\\n");
 		assembly="";
 		for(int i=0;i<assembly_Splitted.length;i++){
-			if(RegexHandler.match(PATT_CURRLINE, assembly_Splitted[i], 0, null).size()>0) assembly_Splitted[i]=assembly_Splitted[i].replace("$",""+i);
+			if(RegexHandler.match(PATT_CURRLINE, assembly_Splitted[i], 0, null).size()>0) assembly_Splitted[i]=assembly_Splitted[i].replaceAll(PATT_CURRLINE,""+i);
 			assembly+="\n"+assembly_Splitted[i];
 		}
 		
